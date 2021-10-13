@@ -1,10 +1,18 @@
-import Button from "@material-ui/core/Button";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Home from "../pages/Home";
 
 function Routes() {
   return (
-    <Button variant="contained" color="primary">
-      Hello World
-    </Button>
+    <Router>
+    <Switch > 
+      <Route exact path='/'>
+          <Home/>
+      </Route>
+      <Route>
+      <Home/>
+      </Route>
+    </Switch>
+  </Router>
   );
 }
 
