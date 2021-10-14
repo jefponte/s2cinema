@@ -1,11 +1,13 @@
 import { Box, Link, Typography } from "@material-ui/core";
 
 
+
+
 function Footer() {
   return (
     <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
       <Typography variant="h6" align="center" gutterBottom>
-        Footer
+        GetMovieList
       </Typography>
       <Typography
         variant="subtitle1"
@@ -13,12 +15,13 @@ function Footer() {
         color="text.secondary"
         component="p"
       >
-        Something here to give the footer a purpose!
+        Share your lists and get lists 
+
       </Typography>
       <Typography variant="body2" color="text.secondary" align="center">
         {"Copyright © "}
-        <Link color="inherit" href="https://material-ui.com/">
-          Your Website
+        <Link color="inherit" href="https://getmovielist.com/">
+          getmovielist.com
         </Link>{" "}
         {new Date().getFullYear()}
         {"."}

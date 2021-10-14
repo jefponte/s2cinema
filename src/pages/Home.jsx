@@ -1,7 +1,6 @@
 import {
   Box,
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   Container,
@@ -11,11 +10,35 @@ import {
 import Button from "@material-ui/core/Button";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import styled from "styled-components";
+
+const ButtonLike = styled(({ color, ...otherProps }) => (
+  <FavoriteIcon {...otherProps} />
+))`
+  color: red;
+`;
+const ButtonUnlike = styled(({ color, ...otherProps }) => (
+  <FavoriteIcon {...otherProps} />
+))`
+  color: black;
+`;
+const ButtonView = styled(({ color, ...otherProps }) => (
+  <VisibilityIcon {...otherProps} />
+))`
+  color: black;
+`;
+
+const ButtonUnview = styled(({ color, ...otherProps }) => (
+  <VisibilityIcon {...otherProps} />
+))`
+  color: black;
+`;
 
 const cards = [
   1, 2, 3, 4, 5, 6, 7, 8, 92, 3, 4, 5, 6, 7, 8, 98, 92, 3, 4, 5, 6, 7, 8, 98,
   92, 3, 4, 5, 6, 7, 8, 9,
 ];
+
 function Home() {
   return (
     <main>
@@ -39,7 +62,6 @@ function Home() {
                     flexDirection: "column",
                   }}
                 >
-                  
                   <CardMedia
                     component="img"
                     sx={{
@@ -49,19 +71,14 @@ function Home() {
                     image="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/7xOb7DFXHit1G0lsbQ131rLScqg.jpg"
                     alt="random"
                   />
-                  <CardActions>
-                    <Button size="small">
-                      <VisibilityIcon />
-                    </Button>
-                    <Button size="small">
-                      <FavoriteIcon />
-                    </Button>
-                  </CardActions>
+
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
                       Taxi Driver
                     </Typography>
                     <Typography>1975</Typography>
+                    <ButtonView />
+                    <ButtonLike />
                   </CardContent>
                 </Card>
               </Grid>
