@@ -1,6 +1,5 @@
 import React from "react";
 import Footer from "./components/Footer";
-import Header from "./components/Header";
 import Routes from "./routes/Routes";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";

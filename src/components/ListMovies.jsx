@@ -35,13 +35,14 @@
 
 // export default ListMovies;
 
-import { useState, useRef, useCallback } from "react";
+import {  useRef, useCallback } from "react";
 import useMovieSearch from "../services/useMovieSearch";
 import MovieItem from "./MovieItem";
 
-export default function ListMovies() {
-  const [query, setQuery] = useState("");
-  const [pageNumber, setPageNumber] = useState(1);
+export default function ListMovies(props) {
+  const {query} = props;
+  let {pageNumber, setPageNumber} = props;
+
 
   const { books, hasMore, loading, error } = useMovieSearch(query, pageNumber);
 
@@ -57,32 +58,20 @@ export default function ListMovies() {
       });
       if (node) observer.current.observe(node);
     },
-    [loading, hasMore]
+    [loading, hasMore, setPageNumber]
   );
-
-  function handleSearch(e) {
-    setQuery(e.target.value);
-    setPageNumber(1);
-  }
 
   return (
     <>
-      <input type="text" value={query} onChange={handleSearch}></input>
       {books.map((book, index) => {
         if (books.length === index + 1) {
-          return (
-              <MovieItem key={book.id} movie={book}/>
-          );
+          return <MovieItem key={book.id} movie={book} />;
         } else {
-          return (
-            <MovieItem movie={book} key={book.id}/>
-          );
+          return <MovieItem movie={book} key={book.id} />;
         }
       })}
       <div>{loading && "Loading..."}</div>
-      <div ref={lastBookElementRef}>
-        Vamos carregar mais
-      </div>
+      <div ref={lastBookElementRef}>Vamos carregar mais</div>
       <div>{error && "Error"}</div>
     </>
   );

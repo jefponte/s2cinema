@@ -1,6 +1,5 @@
-import * as React from "react";
+import React from "react";
 import { styled, alpha } from "@mui/material/styles";
-
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -51,9 +50,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header(props) {
-  const {onSearch} = props;
-  function handleChange(e){
-    onSearch(e.target.value);
+  const { onSearch } = props;
+  function handleChange(event){
+    onSearch(event.target.value);
   }
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -73,6 +72,7 @@ export default function Header(props) {
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
+              
               onChange={handleChange}
               inputProps={{ "aria-label": "search" }}
             />
