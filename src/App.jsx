@@ -25,7 +25,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header />
+      
       <Routes />
       <Footer />
     </ThemeProvider>
