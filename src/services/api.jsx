@@ -6,10 +6,9 @@ import axios from "axios";
 //TheMovieDB Key
 //api_key=34a4cf2512e61f46648b95e4b7a3ec9b
 
-const TheMovieDB = axios.create({
-  baseURL: "https://api.themoviedb.org/",
-});
 
+
+//https://api.themoviedb.org/
 /*
 const PopCornAPI = axios.create({
   baseURL: "https://api.themoviedb.org/",
@@ -20,12 +19,18 @@ const GetMovieListApi = axios.create({
 });
 */
 
-
-export const getPlayingNow = async(setData) => { 
-  const res = await TheMovieDB.get("3/movie/now_playing?api_key=34a4cf2512e61f46648b95e4b7a3ec9b&language=en-US&page=2");
-  console.log(res);
-  setData(res.data.results);
-
+export function getMovieTMDB(id, setMovie){
+  axios({
+    method: "GET",
+    url: `https://api.themoviedb.org/3/movie/${id}`,
+    params: {
+      api_key: "34a4cf2512e61f46648b95e4b7a3ec9b",
+    },
+  })
+    .then((res) => {
+      setMovie(res.data);
+    })
+    .catch((e) => {
+      console.log("Errou");
+    });
 }
-
-

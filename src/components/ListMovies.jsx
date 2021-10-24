@@ -71,7 +71,7 @@ export default function ListMovies(props) {
         }
       })}
       <div>{loading && "Loading..."}</div>
-      <div ref={lastBookElementRef}>Vamos carregar mais</div>
+      <div ref={lastBookElementRef}>...</div>
       <div>{error && "Error"}</div>
     </>
   );

@@ -1,11 +1,24 @@
+
+
+import { getMovieTMDB } from "../services/api";
 import { Box, Container, Grid } from "@material-ui/core";
 import ListMovies from "../components/ListMovies";
-import React, { useState } from "react";
+import { useHistory, useParams } from "react-router";
+import React, { useState,  useEffect } from "react";
 import Header from "../components/Header";
+import SelectedMovie from "../components/SelectedMovie";
 
-function Home() {
+function MovieSelect() {
   const [query, setQuery] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
+  const { id } = useParams();
+  const [movie, setMovie] = useState({});
+
+
+  useEffect(() => {
+    getMovieTMDB(id, setMovie);
+  }, [id, movie]);
+
 
   function handleSearch(value) {
     setQuery(value);
@@ -24,7 +37,8 @@ function Home() {
         >
           <Container sx={{ py: 8 }} maxWidth={false}>
             <Grid container spacing={4}>
-              <ListMovies query={query} setQuery={setQuery} pageNumber={pageNumber} setPageNumber={setPageNumber}/>
+                {query === "" ? <SelectedMovie movie={movie}/> :  <ListMovies query={query} setQuery={setQuery} pageNumber={pageNumber} setPageNumber={setPageNumber}/>}
+             
             </Grid>
           </Container>
         </Box>
@@ -33,4 +47,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default MovieSelect;
