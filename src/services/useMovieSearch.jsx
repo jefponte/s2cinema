@@ -22,6 +22,7 @@ export default function useMovieSearch(query, pageNumber) {
         params: {
           page: pageNumber,
           api_key: process.env.REACT_APP_TOKEN_API,
+          language: navigator.language
         },
         cancelToken: new axios.CancelToken((c) => (cancel = c)),
       })
@@ -48,6 +49,7 @@ export default function useMovieSearch(query, pageNumber) {
           query,
           page: pageNumber,
           api_key: process.env.REACT_APP_TOKEN_API,
+          language: navigator.language
         },
         cancelToken: new axios.CancelToken((c) => (cancel = c)),
       })

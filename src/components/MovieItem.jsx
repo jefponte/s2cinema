@@ -79,7 +79,7 @@ export default function MovieItem(props) {
           />
         </Link>
         <CardContent>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          <Typography sx={{ fontSize: 14 }} gutterBottom>
             {props.movie.title}
           </Typography>
           <Typography>{data.getFullYear()}</Typography>

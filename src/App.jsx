@@ -3,12 +3,14 @@ import Footer from "./components/Footer";
 import Routes from "./routes/Routes";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { IntlProvider, FormattedNumber, ForrmattedNumber } from "react-intl";
-
-
+import {
+  IntlProvider
+} from "react-intl";
+import messages from "./language/messages";
 
 function App() {
-  
+
+  const language = navigator.language.split("-")[0];
   const theme = createTheme({
     status: {
       danger: "#e53e3e",
@@ -22,12 +24,15 @@ function App() {
         main: "#ffc107",
         contrastText: "#fff",
       },
+      secondary: {
+        main: "#ffc107",
+        contrastText: "#fff",
+      }
     },
   });
 
   return (
-    <IntlProvider locale={"pt"}>
-      
+    <IntlProvider locale={language} messages={messages[language]}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Routes />

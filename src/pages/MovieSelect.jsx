@@ -1,5 +1,5 @@
-import { getMovieTMDB, getMovieImagesTMDB } from "../services/api";
-import { Box, Container, Grid } from "@material-ui/core";
+import { getMovieTMDB } from "../services/api";
+import { Box, Container } from "@material-ui/core";
 import { useParams } from "react-router";
 import React, { useState, useEffect } from "react";
 import MovieSelected from "../components/MovieSelected";
@@ -7,7 +7,6 @@ import MovieSelected from "../components/MovieSelected";
 function MovieSelect() {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
-  const [images, setImages] = useState({});
 
   let styles = {
     paperContainer: {
@@ -17,7 +16,6 @@ function MovieSelect() {
 
   useEffect(() => {
     getMovieTMDB(id, setMovie);
-    getMovieImagesTMDB(id, setImages);
   }, [id]);
 
   return (

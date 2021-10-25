@@ -1,7 +1,5 @@
 import { Box, Link, Typography } from "@material-ui/core";
-
-
-
+import { FormattedMessage } from "react-intl";
 
 function Footer() {
   return (
@@ -9,13 +7,12 @@ function Footer() {
       <Typography variant="h6" align="center" gutterBottom>
         GetMovieList
       </Typography>
-      <Typography
-        variant="subtitle1"
-        align="center"
-        component="p"
-      >
-        Share your lists and get lists 
-
+      <Typography variant="subtitle1" align="center" component="p">
+        <FormattedMessage
+          id="app.slogan"
+          description="Slogan"
+          defaultMessage="Share your lists and get lists"
+        />
       </Typography>
       <Typography variant="body2" align="center">
         {"Copyright © "}
