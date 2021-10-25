@@ -6,7 +6,7 @@ export default function useMovieSearch(query, pageNumber) {
   const [error, setError] = useState(false);
   const [movies, setMovies] = useState([]);
   const [hasMore, setHasMore] = useState(false);
-
+  
   useEffect(() => {
     setMovies([]);
   }, [query]);
@@ -21,7 +21,7 @@ export default function useMovieSearch(query, pageNumber) {
         url: "https://api.themoviedb.org/3/movie/now_playing",
         params: {
           page: pageNumber,
-          api_key: "34a4cf2512e61f46648b95e4b7a3ec9b",
+          api_key: process.env.REACT_APP_TOKEN_API,
         },
         cancelToken: new axios.CancelToken((c) => (cancel = c)),
       })
@@ -47,7 +47,7 @@ export default function useMovieSearch(query, pageNumber) {
         params: {
           query,
           page: pageNumber,
-          api_key: "34a4cf2512e61f46648b95e4b7a3ec9b",
+          api_key: process.env.REACT_APP_TOKEN_API,
         },
         cancelToken: new axios.CancelToken((c) => (cancel = c)),
       })

@@ -13,7 +13,7 @@ export default function MovieSelected(props) {
   return (
    
       <Grid container spacing={4}>
-        <Grid item xl={3} lg={2} md={3} sm={6} xs={6}>
+        <Grid item xl={3} lg={2} md={3} sm={12} xs={12}>
           <Card>
             <CardMedia
               component="img"
@@ -22,7 +22,7 @@ export default function MovieSelected(props) {
             />
           </Card>
         </Grid>
-        <Grid item xl={9} lg={10} md={9} sm={6} xs={6}>
+        <Grid item xl={9} lg={10} md={9} sm={12} xs={12}>
           <Card>
             <CardContent>
 

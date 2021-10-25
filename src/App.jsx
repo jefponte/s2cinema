@@ -3,8 +3,12 @@ import Footer from "./components/Footer";
 import Routes from "./routes/Routes";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import { IntlProvider, FormattedNumber, ForrmattedNumber } from "react-intl";
+
+
 
 function App() {
+  
   const theme = createTheme({
     status: {
       danger: "#e53e3e",
@@ -22,12 +26,14 @@ function App() {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <IntlProvider locale={"pt"}>
       
-      <Routes />
-      <Footer />
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Routes />
+        <Footer />
+      </ThemeProvider>
+    </IntlProvider>
   );
 }
 

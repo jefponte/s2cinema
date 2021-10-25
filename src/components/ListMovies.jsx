@@ -2,6 +2,7 @@ import { useRef, useCallback } from "react";
 import useMovieSearch from "../services/useMovieSearch";
 import MovieItem from "./MovieItem";
 
+import CardLoading from  "./CardLoading";
 
 
 
@@ -35,7 +36,7 @@ export default function ListMovies(props) {
         }
       })}
 
-      <div>{loading && "Loading..."}</div>
+      <div>{loading && (<CardLoading/>)}</div>
       <div>{error && "Error"}</div>
       <div ref={lastBookElementRef}>.</div>
     </>
