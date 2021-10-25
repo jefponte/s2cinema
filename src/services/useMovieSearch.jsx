@@ -4,11 +4,11 @@ import axios from "axios";
 export default function useMovieSearch(query, pageNumber) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [books, setBooks] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
-    setBooks([]);
+    setMovies([]);
   }, [query]);
 
   useEffect(() => {
@@ -26,11 +26,13 @@ export default function useMovieSearch(query, pageNumber) {
         cancelToken: new axios.CancelToken((c) => (cancel = c)),
       })
         .then((res) => {
-          setBooks((prevBooks) => {
+          setMovies((prevMovies) => {
+            
             return [
-              ...new Set([...prevBooks, ...res.data.results.map((b) => b)]),
+              ...new Set([...prevMovies, ...res.data.results.map((b) => b)]),
             ];
           });
+          
           setHasMore(res.data.results.length > 0);
           setLoading(false);
         })
@@ -50,11 +52,12 @@ export default function useMovieSearch(query, pageNumber) {
         cancelToken: new axios.CancelToken((c) => (cancel = c)),
       })
         .then((res) => {
-          setBooks((prevBooks) => {
+          setMovies((prevMovies) => {
             return [
-              ...new Set([...prevBooks, ...res.data.results.map((b) => b)]),
+              ...new Set([...prevMovies, ...res.data.results.map((b) => b)]),
             ];
           });
+          
           setHasMore(res.data.results.length > 0);
           setLoading(false);
         })
@@ -67,5 +70,5 @@ export default function useMovieSearch(query, pageNumber) {
     return () => cancel();
   }, [query, pageNumber]);
 
-  return { loading, error, books, hasMore };
+  return { loading, error, movies, hasMore };
 }

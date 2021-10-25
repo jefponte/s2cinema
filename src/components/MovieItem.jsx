@@ -9,6 +9,46 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
+
+// import FavoriteIcon from "@mui/icons-material/Favorite";
+// import VisibilityIcon from "@mui/icons-material/Visibility";
+// import styled from "styled-components";
+
+// // const ButtonLike = styled(({ color, ...otherProps }) => (
+// //   <FavoriteIcon {...otherProps} />
+// // ))`
+// //   color: red;
+// // `;
+// // const ButtonUnlike = styled(({ color, ...otherProps }) => (
+// //   <FavoriteIcon {...otherProps} />
+// // ))`
+// //   color: black;
+// // `;
+// // const ButtonView = styled(({ color, ...otherProps }) => (
+// //   <VisibilityIcon {...otherProps} />
+// // ))`
+// //   color: black;
+// // `;
+
+// // const ButtonUnview = styled(({ color, ...otherProps }) => (
+// //   <VisibilityIcon {...otherProps} />
+// // ))`
+// //   color: black;
+// // `;
+
+// function ListMovies(props) {
+//   const [list, setList] = useState([]);
+
+//   useEffect(() => {
+//     getPlayingNow(setList);
+//   }, []);
+
+// }
+
+// export default ListMovies;
+
+
+
 export default function MovieItem(props) {
   const data = new Date(props.movie.release_date);
   let imagePath = ImageNoPoster;
@@ -19,7 +59,7 @@ export default function MovieItem(props) {
   return (
     <Grid item xl={1} lg={2} md={3} sm={4} xs={6}>
       {console.log()}
-      <Link to={`/movie/${props.movie.id}`}>
+
       <Card
         sx={{
           height: "100%",
@@ -27,23 +67,24 @@ export default function MovieItem(props) {
           flexDirection: "column",
         }}
       >
-        <CardMedia
-          component="img"
-          sx={{
-            // 16:9
-            pt: "56.25%",
-          }}
-          image={imagePath}
-          alt="random"
-        />
-
+        <Link to={`/movie/${props.movie.id}`}>
+          <CardMedia
+            component="img"
+            sx={{
+              // 16:9
+              pt: "56.25%",
+            }}
+            image={imagePath}
+            alt="random"
+          />
+        </Link>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             {props.movie.title}
           </Typography>
           <Typography>{data.getFullYear()}</Typography>
         </CardContent>
-      </Card></Link>
+      </Card>
     </Grid>
   );
 }

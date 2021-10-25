@@ -1,49 +1,43 @@
-
-
-import { getMovieTMDB } from "../services/api";
+import { getMovieTMDB, getMovieImagesTMDB } from "../services/api";
 import { Box, Container, Grid } from "@material-ui/core";
-import ListMovies from "../components/ListMovies";
-import { useHistory, useParams } from "react-router";
-import React, { useState,  useEffect } from "react";
-import Header from "../components/Header";
-import SelectedMovie from "../components/SelectedMovie";
+import { useParams } from "react-router";
+import React, { useState, useEffect } from "react";
+import MovieSelected from "../components/MovieSelected";
 
 function MovieSelect() {
-  const [query, setQuery] = useState("");
-  const [pageNumber, setPageNumber] = useState(1);
   const { id } = useParams();
   const [movie, setMovie] = useState({});
+  const [images, setImages] = useState({});
 
+  let styles = {
+    paperContainer: {
+      background: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}") no-repeat bottom center scroll`,
+    },
+  };
 
   useEffect(() => {
     getMovieTMDB(id, setMovie);
-  }, [id, movie]);
+    getMovieImagesTMDB(id, setImages);
+  }, [id]);
 
-
-  function handleSearch(value) {
-    setQuery(value);
-    setPageNumber(1);
-  }
   return (
-    <>
-      <Header onSearch={handleSearch}/>
-      <main>
-        <Box
-          sx={{
-            bgcolor: "background.paper",
-            pt: 3,
-            pb: 6,
-          }}
+    <main>
+      <Box
+        sx={{
+          pt: 3,
+          pb: 6,
+        }}
+        style={styles.paperContainer}
+      >
+        <Container
+          sx={{ py: 8 }}
+          maxWidth={false}
+         
         >
-          <Container sx={{ py: 8 }} maxWidth={false}>
-            <Grid container spacing={4}>
-                {query === "" ? <SelectedMovie movie={movie}/> :  <ListMovies query={query} setQuery={setQuery} pageNumber={pageNumber} setPageNumber={setPageNumber}/>}
-             
-            </Grid>
-          </Container>
-        </Box>
-      </main>
-    </>
+          <MovieSelected movie={movie} />
+        </Container>
+      </Box>
+    </main>
   );
 }
 
