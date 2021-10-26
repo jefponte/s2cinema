@@ -9,6 +9,6 @@ export const apiTMDB = axios.create({
 });
 
 export const getMovieTMDB = async(id, setMovie) => { 
-  const response = await apiTMDB.get(`3/movie/${id}`)
-  setMovie(response.data)
+  const response = await apiTMDB.get(`3/movie/${id}`);
+  setMovie(response.data);
 }

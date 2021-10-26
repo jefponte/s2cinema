@@ -5,61 +5,41 @@ import { apiTMDB } from "./api";
 export default function useMovieSearch(query, pageNumber) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [movies, setMovies] = useState([]);
+  const [pageMovies, setPageMovies] = useState([]);
   const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
-    setMovies([]);
+    setPageMovies([]);
   }, [query]);
 
   useEffect(() => {
     setLoading(true);
     setError(false);
     let cancel;
-
+    let params = { query, page: pageNumber };
+    let url = `/3/search/movie`;
     if (query === "") {
-      apiTMDB
-        .get(`/3/movie/now_playing`, {
-          params: { page: pageNumber },
-          cancelToken: new axios.CancelToken((c) => (cancel = c)),
-        })
-        .then((res) => {
-          setMovies((prevMovies) => {
-            return [
-              ...new Set([...prevMovies, ...res.data.results.map((b) => b)]),
-            ];
-          });
-          setHasMore(res.data.total_pages > pageNumber);
-          setLoading(false);
-        })
-        .catch((e) => {
-          if (axios.isCancel(e)) return;
-          setError(true);
-        });
-    } else {
-      apiTMDB
-        .get(`/3/search/movie`, {
-          params: { query, page: pageNumber },
-          cancelToken: new axios.CancelToken((c) => (cancel = c)),
-        })
-        .then((res) => {
-          setMovies((prevMovies) => {
-            return [
-              ...new Set([...prevMovies, ...res.data.results.map((b) => b)]),
-            ];
-          });
-
-          setHasMore(res.data.total_pages > pageNumber);
-          setLoading(false);
-        })
-        .catch((e) => {
-          if (axios.isCancel(e)) return;
-          setError(true);
-        });
+      params = { page: pageNumber };
+      url = `/3/movie/now_playing`;
     }
-
+    apiTMDB
+      .get(url, {
+        params,
+        cancelToken: new axios.CancelToken((c) => (cancel = c)),
+      })
+      .then((res) => {
+        setPageMovies((prevBooks) => {
+          return [...new Set([...prevBooks, res.data])];
+        });
+        setHasMore(res.data.total_pages > pageNumber);
+        setLoading(false);
+      })
+      .catch((e) => {
+        if (axios.isCancel(e)) return;
+        setError(true);
+      });
     return () => cancel();
   }, [query, pageNumber]);
 
-  return { loading, error, movies, hasMore };
+  return { loading, error, pageMovies, hasMore };
 }
