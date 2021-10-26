@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { apiTMDB } from "./api";
 
 export default function useMovieSearch(query, pageNumber) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [movies, setMovies] = useState([]);
   const [hasMore, setHasMore] = useState(false);
-  
+
   useEffect(() => {
     setMovies([]);
   }, [query]);
@@ -15,25 +16,19 @@ export default function useMovieSearch(query, pageNumber) {
     setLoading(true);
     setError(false);
     let cancel;
+
     if (query === "") {
-      axios({
-        method: "GET",
-        url: "https://api.themoviedb.org/3/movie/now_playing",
-        params: {
-          page: pageNumber,
-          api_key: process.env.REACT_APP_TOKEN_API,
-          language: navigator.language
-        },
-        cancelToken: new axios.CancelToken((c) => (cancel = c)),
-      })
+      apiTMDB
+        .get(`/3/movie/now_playing`, {
+          params: { page: pageNumber },
+          cancelToken: new axios.CancelToken((c) => (cancel = c)),
+        })
         .then((res) => {
           setMovies((prevMovies) => {
-            
             return [
               ...new Set([...prevMovies, ...res.data.results.map((b) => b)]),
             ];
           });
-          
           setHasMore(res.data.results.length > 0);
           setLoading(false);
         })
@@ -42,24 +37,18 @@ export default function useMovieSearch(query, pageNumber) {
           setError(true);
         });
     } else {
-      axios({
-        method: "GET",
-        url: "https://api.themoviedb.org/3/search/movie",
-        params: {
-          query,
-          page: pageNumber,
-          api_key: process.env.REACT_APP_TOKEN_API,
-          language: navigator.language
-        },
-        cancelToken: new axios.CancelToken((c) => (cancel = c)),
-      })
+      apiTMDB
+        .get(`/3/search/movie`, {
+          params: { query, page: pageNumber },
+          cancelToken: new axios.CancelToken((c) => (cancel = c)),
+        })
         .then((res) => {
           setMovies((prevMovies) => {
             return [
               ...new Set([...prevMovies, ...res.data.results.map((b) => b)]),
             ];
           });
-          
+
           setHasMore(res.data.results.length > 0);
           setLoading(false);
         })

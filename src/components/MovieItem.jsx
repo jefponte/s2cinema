@@ -50,7 +50,7 @@ import { Link } from "react-router-dom";
 
 
 export default function MovieItem(props) {
-  const data = new Date(props.movie.release_date);
+  const data =((props.movie.release_date === null || props.movie.release_date === ""  || props.movie.release_date === undefined) ? "" : new Date(props.movie.release_date));
   let imagePath = ImageNoPoster;
 
   if (props.movie.poster_path !== null) {
@@ -58,7 +58,7 @@ export default function MovieItem(props) {
   }
   return (
     <Grid item xl={1} lg={2} md={3} sm={4} xs={6}>
-      {console.log()}
+     
 
       <Card
         sx={{
@@ -82,7 +82,7 @@ export default function MovieItem(props) {
           <Typography sx={{ fontSize: 14 }} gutterBottom>
             {props.movie.title}
           </Typography>
-          <Typography>{data.getFullYear()}</Typography>
+          <Typography>{data === "" ? "????" : data.getFullYear()}</Typography>
         </CardContent>
       </Card>
     </Grid>

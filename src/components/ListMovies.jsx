@@ -12,7 +12,7 @@ export default function ListMovies(props) {
   const { movies, hasMore, loading, error } = useMovieSearch(query, pageNumber);
   const observer = useRef();
 
-  const lastBookElementRef = useCallback(
+  const lastMovieRef = useCallback(
     (node) => {
       if (loading) return;
       if (observer.current) observer.current.disconnect();
@@ -28,17 +28,17 @@ export default function ListMovies(props) {
 
   return (
     <>
-      {movies.map((book, index) => {
+      {movies.map((movie, index) => {
         if (movies.length === index + 1) {
-          return <MovieItem key={book.id} movie={book} />;
+          return <MovieItem key={movie.id} movie={movie} />;
         } else {
-          return <MovieItem movie={book} key={book.id} />;
+          return <MovieItem movie={movie} key={movie.id} />;
         }
       })}
 
       <div>{loading && (<CardLoading/>)}</div>
       <div>{error && "Error"}</div>
-      <div ref={lastBookElementRef}>.</div>
+      <div ref={lastMovieRef}>.</div>
     </>
   );
 }
