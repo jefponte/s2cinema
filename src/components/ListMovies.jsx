@@ -1,6 +1,6 @@
 import { useRef, useCallback } from "react";
 import useMovieSearch from "../services/useMovieSearch";
-import MovieItem from "./MovieItem";
+import MoviePage from "./MoviePage";
 
 import CardLoading from  "./CardLoading";
 
@@ -30,9 +30,9 @@ export default function ListMovies(props) {
     <>
       {movies.map((movie, index) => {
         if (movies.length === index + 1) {
-          return <MovieItem key={movie.id} movie={movie} />;
+          return <MoviePage key={movie.id} movie={movie} />;
         } else {
-          return <MovieItem movie={movie} key={movie.id} />;
+          return <MoviePage movie={movie} key={movie.id} />;
         }
       })}
 

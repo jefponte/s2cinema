@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import ListPageMovie from "../components/ListPageMovie";
 import Home from "../pages/Home";
 import MovieSelect from "../pages/MovieSelect";
 
@@ -15,6 +16,7 @@ function Routes() {
         <Route path="/person/:id">
           <Home />
         </Route>
+        
         <Route>
           <Home />
         </Route>

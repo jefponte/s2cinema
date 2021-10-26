@@ -1,7 +1,7 @@
 import { Box, Container, Grid } from "@material-ui/core";
-import ListMovies from "../components/ListMovies";
 import React, { useState } from "react";
 import Header from "../components/Header";
+import ListPageMovie from "../components/ListPageMovie";
 
 function Home() {
   const [query, setQuery] = useState("");
@@ -24,7 +24,7 @@ function Home() {
         >
           <Container sx={{ py: 8 }} maxWidth={false}>
             <Grid container spacing={4}>
-              <ListMovies query={query} setQuery={setQuery} pageNumber={pageNumber} setPageNumber={setPageNumber}/>
+              <ListPageMovie query={query} pageNumber={pageNumber} setPageNumber={setPageNumber}/>
             </Grid>
           </Container>
         </Box>

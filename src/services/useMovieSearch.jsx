@@ -29,7 +29,7 @@ export default function useMovieSearch(query, pageNumber) {
               ...new Set([...prevMovies, ...res.data.results.map((b) => b)]),
             ];
           });
-          setHasMore(res.data.results.length > 0);
+          setHasMore(res.data.total_pages > pageNumber);
           setLoading(false);
         })
         .catch((e) => {
@@ -49,7 +49,7 @@ export default function useMovieSearch(query, pageNumber) {
             ];
           });
 
-          setHasMore(res.data.results.length > 0);
+          setHasMore(res.data.total_pages > pageNumber);
           setLoading(false);
         })
         .catch((e) => {
