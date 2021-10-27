@@ -14,7 +14,7 @@ export default function ContainerImages(props) {
   }
 
   return (
-    <div>
+    <>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -57,18 +57,7 @@ export default function ContainerImages(props) {
           </ImageList>
         </AccordionDetails>
       </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography>Videos</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>Em breve...</Typography>
-        </AccordionDetails>
-      </Accordion>
+     
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -84,6 +73,6 @@ export default function ContainerImages(props) {
           </Typography>
         </AccordionDetails>
       </Accordion>
-    </div>
+    </>
   );
 }

@@ -26,3 +26,7 @@ export const getImages = async (id, setImages) => {
   });
   setImages(response.data);
 };
+export const getVideos = async (id, setVideos) => {
+  const response = await apiTMDB.get(`3/movie/${id}/videos`);
+  setVideos(response.data);
+};
