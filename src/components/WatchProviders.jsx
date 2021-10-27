@@ -15,13 +15,13 @@ export default function WatchProviders(props) {
   });
 
   function isPT(pais) {
-    return pais.code === 'BR';
+    return pais.code === "BR";
   }
 
-  let defaultCountry = ((countries[0] !== null) ? countries[0]: {});
-  if(language === 'pt'){
-    let def2 =  countries.find(isPT);
-    if(def2 !== undefined){
+  let defaultCountry = countries[0] !== null ? countries[0] : {};
+  if (language === "pt") {
+    let def2 = countries.find(isPT);
+    if (def2 !== undefined) {
       defaultCountry = def2;
     }
   }
@@ -30,14 +30,17 @@ export default function WatchProviders(props) {
 
   return (
     <>
+      {countries.length === 0 ? "" : 
+      (<>
+      
       <Autocomplete
+        fullwidth="true"
         id="country-select-demo"
-        sx={{ width: 300 }}
         options={countries}
         autoHighlight
         value={country}
         onChange={(event, newValue) => {
-          if(newValue !== null && newValue !== ""){
+          if (newValue !== null && newValue !== "") {
             setCountry(newValue);
           }
         }}
@@ -55,7 +58,7 @@ export default function WatchProviders(props) {
               srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
               alt=""
             />
-            {option.label} ({option.code}) 
+            {option.label} ({option.code})
           </Box>
         )}
         renderInput={(params) => (
@@ -96,10 +99,9 @@ export default function WatchProviders(props) {
           return <React.Fragment key={index}></React.Fragment>;
         }
       })}
-
+      </>)
+      }
+     
     </>
   );
 }
-
-
-

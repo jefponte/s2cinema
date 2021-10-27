@@ -57,7 +57,7 @@ export default function MovieItem(props) {
     imagePath = `https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${props.movie.poster_path}`;
   }
   return (
-    <Grid item xl={1} lg={2} md={3} sm={4} xs={6}>
+    <Grid item xl={2} lg={2} md={3} sm={4} xs={6}>
      
 
       <Card

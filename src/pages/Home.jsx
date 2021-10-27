@@ -4,6 +4,8 @@ import React, { useRef, useCallback, useState } from "react";
 import useMovieSearch from "../services/useMovieSearch";
 import NavBar from "../components/NavBar";
 import MovieItem from "../components/MovieItem";
+import { BackToTop } from "material-ui-back-to-top";
+
 
 export default function Home(props) {
   const [query, setQuery] = useState("");
@@ -35,6 +37,7 @@ export default function Home(props) {
     <>
       <NavBar onSearch={handleSearch} />
       <main>
+        <BackToTop />
         <Box
           sx={{
             bgcolor: "background.paper",

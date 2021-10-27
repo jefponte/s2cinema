@@ -11,27 +11,36 @@ import {
 
 import { FormattedDate } from "react-intl";
 import { useParams } from "react-router";
-import { getMovieTMDB, getWatchProviders } from "../services/api";
+import { getMovieTMDB, getWatchProviders, getCredits } from "../services/api";
 import WatchProviders from "../components/WatchProviders";
+import ContainerCredits from "../components/ContainerCredits";
+import { BackToTop } from "material-ui-back-to-top";
+
 
 export default function MovieSelected(props) {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
   const [watchProviders, setWatchProviders] = useState({});
+  const [credits, setCredits] = useState({});
 
   useEffect(() => {
     getMovieTMDB(id, setMovie);
     getWatchProviders(id, setWatchProviders);
+    getCredits(id, setCredits);
   }, [id]);
 
   let styles = {
     paperContainer: {
-      background: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}") no-repeat bottom center scroll`,
+      backgroundColor:"#2b2b2b"
+      // backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}") `,
+      // backgroundSize: `cover`,
+      // backgroundRepeat: `no-repeat`,
     },
   };
 
   return (
     <main>
+      <BackToTop />
       <Box
         sx={{
           pt: 3,
@@ -45,7 +54,7 @@ export default function MovieSelected(props) {
               <>Loading</>
             ) : (
               <>
-                <Grid item xl={3} lg={2} md={3} sm={6} xs={6}>
+                <Grid item xl={3} lg={2} md={3} sm={12} xs={12}>
                   <Card>
                     <CardMedia
                       component="img"
@@ -54,7 +63,7 @@ export default function MovieSelected(props) {
                     />
                   </Card>
                 </Grid>
-                <Grid item xl={9} lg={10} md={9} sm={6} xs={6}>
+                <Grid item xl={9} lg={10} md={9} sm={12} xs={12}>
                   <Card>
                     <CardContent>
                       <Typography variant="h5" component="div">
@@ -69,19 +78,58 @@ export default function MovieSelected(props) {
                       </Typography>
                       <Typography variant="body2">{movie.overview}</Typography>
                     </CardContent>
-                  </Card><br/>
-                  <Card>
-                    <CardContent>
-                      <Typography variant="h5" component="div">
-                          Watch Providers
-                      </Typography>
-                      {Object.keys(watchProviders).length === 0 ? (
-                        <>Loading</>
-                      ) : (
-                        <WatchProviders providers={watchProviders} />
-                      )}
-                    </CardContent>
                   </Card>
+                  <br />
+
+                  <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                    <Grid container spacing={4}>
+                      <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+                        <Card>
+                          <CardContent>
+                            <Typography variant="h5" component="div">
+                              Watch Providers
+                            </Typography>
+                            {Object.keys(watchProviders).length === 0 ? (
+                              <>Loading</>
+                            ) : (
+                              <WatchProviders providers={watchProviders} />
+                            )}
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                      <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+                        <Card>
+                          <CardContent>
+                            <Typography variant="h5" component="div">
+                              Fotos
+                            </Typography>
+                            Em breve...
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                      <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+                        <Card>
+                          <CardContent>
+                            <Typography variant="h5" component="div">
+                              Videos
+                            </Typography>
+                            Em breve...
+                          </CardContent>
+                        </Card>
+                      </Grid>
+
+                      <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                        <Grid container spacing={4}>
+                          {Object.keys(credits).length === 0 ? (
+                            <>Loading credits</>
+                          ) : (
+                            <ContainerCredits credits={credits}/>
+                          )}
+                          
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </>
             )}
