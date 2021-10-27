@@ -106,7 +106,6 @@ export default function MovieSelected(props) {
       backgroundColor: "#2b2b2b",
     },
   };
-  console.log(videos);
   if (movie === null || movie === undefined) {
     return (
       <>
@@ -212,15 +211,14 @@ export default function MovieSelected(props) {
                     </Card>
                   </Grid>
 
-                  <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                    <Grid container spacing={4}>
+                 
+                    
                       {Object.keys(credits).length === 0 ? (
                         <>Loading credits</>
                       ) : (
                         <ContainerCredits credits={credits} />
                       )}
-                    </Grid>
-                  </Grid>
+                    
                 </Grid>
               </Grid>
             </Grid>
