@@ -42,7 +42,7 @@ function ItemCredits(props) {
           image={
             people.profile_path === null
               ? ImageNoPoster
-              : `https://image.tmdb.org/t/p/original/${people.profile_path}`
+              : `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${people.profile_path}`
           }
           alt="random"
         />

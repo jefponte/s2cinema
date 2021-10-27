@@ -113,7 +113,7 @@ export default function WatchProviders(props) {
               {providers.results[country.code][elemento].map((item, index) => {
                 return (
                   <img
-                    src={`https://image.tmdb.org/t/p/original/${item.logo_path}`}
+                    src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${item.logo_path}`}
                     height={50}
                     key={item.provider_id}
                     alt={item.provider_name}

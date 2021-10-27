@@ -164,7 +164,7 @@ export default function MovieSelected(props) {
                 <Card>
                   <CardMedia
                     component="img"
-                    image={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                    image={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}
                     alt="green iguana"
                   />
                 </Card>

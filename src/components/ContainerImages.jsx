@@ -36,7 +36,7 @@ export default function ContainerImages(props) {
               return (
                 <ImageListItem key={index}>
                   <img
-                    src={`https://image.tmdb.org/t/p/original/${item.file_path}`}
+                    src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${item.file_path}`}
                     alt={index}
                     loading="lazy"
                   />
@@ -47,7 +47,7 @@ export default function ContainerImages(props) {
               return (
                 <ImageListItem key={index}>
                   <img
-                    src={`https://image.tmdb.org/t/p/original/${item.file_path}`}
+                    src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${item.file_path}`}
                     alt={index}
                     loading="lazy"
                   />
