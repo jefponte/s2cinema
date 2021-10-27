@@ -14,8 +14,12 @@ export default function WatchProviders(props) {
     countries.push({ label: regionNames.of(item), code: item });
   });
 
-  function isPT(pais) {
-    return pais.code === "BR";
+  function isPT(c) {
+    if(Object.keys(c).length === 0 || c === undefined){
+      return false;
+    }
+    return c.code === "BR";
+    
   }
 
   let defaultCountry = countries[0] !== null ? countries[0] : {};
@@ -27,11 +31,14 @@ export default function WatchProviders(props) {
   }
   const [country, setCountry] = useState(defaultCountry);
   const types = ["flatrate", "rent", "buy"];
-
+  if(countries === undefined){
+    return "";
+  }
+  if(Object.keys(countries).length === 0 ){
+    return "";
+  }
   return (
     <>
-      {countries.length === 0 ? "" : 
-      (<>
       
       <Autocomplete
         fullwidth="true"
@@ -99,9 +106,7 @@ export default function WatchProviders(props) {
           return <React.Fragment key={index}></React.Fragment>;
         }
       })}
-      </>)
-      }
-     
+         
     </>
   );
 }

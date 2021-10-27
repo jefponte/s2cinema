@@ -69,7 +69,7 @@ export default function Header(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            .{/* Filtros */}
+           &nbsp; {/* Filtros */}
           </Typography>
           <Search>
             <SearchIconWrapper>

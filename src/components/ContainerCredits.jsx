@@ -1,49 +1,19 @@
 import * as React from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Card, CardContent, CardMedia, Grid } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import ImageNoPoster from "../assets/images/noImage.png";
+import styled from "styled-components";
 
-function SimpleAccordion() {
-  return (
-    <div>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Elenco</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography>Equipe Técnica</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-    </div>
-  );
-}
+const NamePerson = styled(({ color, ...otherProps }) => (
+  <Typography {...otherProps} />
+))`
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+
 function ItemCredits(props) {
   const { people } = props;
   return (
@@ -71,9 +41,9 @@ function ItemCredits(props) {
           />
         {/* </Link> */}
         <CardContent>
-          <Typography sx={{ fontSize: 14 }} gutterBottom>
+          <NamePerson sx={{ fontSize: 14 }} gutterBottom>
             {people.name}
-          </Typography>
+          </NamePerson>
           {/* <Typography>Personagem</Typography> */}
         </CardContent>
       </Card>
@@ -85,7 +55,6 @@ export default function ContainerCredits(props) {
 
   return (
     <React.Fragment>
-      {console.log(credits)}
       {credits.cast.map((people, index) => {
         return <ItemCredits people={people} key={index} />;
       })}

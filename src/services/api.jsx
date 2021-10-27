@@ -8,15 +8,21 @@ export const apiTMDB = axios.create({
   },
 });
 
-export const getMovieTMDB = async(id, setMovie) => { 
+export const getMovieTMDB = async (id, setMovie) => {
   const response = await apiTMDB.get(`3/movie/${id}`);
   setMovie(response.data);
-}
-export const getWatchProviders = async(id, setWatchProviders) => { 
+};
+export const getWatchProviders = async (id, setWatchProviders) => {
   const response = await apiTMDB.get(`3/movie/${id}/watch/providers`);
   setWatchProviders(response.data);
-}
-export const getCredits = async(id, setCredits) => { 
+};
+export const getCredits = async (id, setCredits) => {
   const response = await apiTMDB.get(`3/movie/${id}/credits`);
   setCredits(response.data);
-}
+};
+export const getImages = async (id, setImages) => {
+  const response = await apiTMDB.get(`3/movie/${id}/images`, {
+    params: { language: null },
+  });
+  setImages(response.data);
+};
