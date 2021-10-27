@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "../pages/Home";
-import MovieSelect from "../pages/MovieSelect";
+import MovieSelected from "../pages/MovieSelected";
 
 function Routes() {
   return (
@@ -10,7 +10,7 @@ function Routes() {
           <Home />
         </Route>
         <Route path="/movie/:id">
-          <MovieSelect />
+          <MovieSelected />
         </Route>
         <Route path="/person/:id">
           <Home />

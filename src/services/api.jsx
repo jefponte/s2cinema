@@ -12,3 +12,7 @@ export const getMovieTMDB = async(id, setMovie) => {
   const response = await apiTMDB.get(`3/movie/${id}`);
   setMovie(response.data);
 }
+export const getWatchProviders = async(id, setWatchProviders) => { 
+  const response = await apiTMDB.get(`3/movie/${id}/watch/providers`);
+  setWatchProviders(response.data);
+}
