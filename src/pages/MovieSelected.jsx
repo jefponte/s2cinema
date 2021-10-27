@@ -64,6 +64,15 @@ export default function MovieSelected(props) {
     );
   }
 
+  if (search) {
+    return (
+      <MovieSearch
+        noSearchJustHeader={true}
+        setSearch={setSearch}
+        searching={search}
+      />
+    );
+  }
   return (
     <>
       <MovieSearch
@@ -71,101 +80,95 @@ export default function MovieSelected(props) {
         setSearch={setSearch}
         searching={search}
       />
-      <br />
-      {search ? (
-        ""
-      ) : (
-        <main>
-          <BackToTop />
 
-          <Box
-            sx={{
-              pt: 3,
-              pb: 6,
-            }}
-            style={styles.paperContainer}
-          >
-            <Container sx={{ py: 8 }} maxWidth={false}>
-              <Grid container spacing={4}>
-                <Grid item xl={1} lg={2} md={2} sm={5} xs={5}>
-                  <Card>
-                    <CardMedia
-                      component="img"
-                      image={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                      alt="green iguana"
-                    />
-                  </Card>
-                </Grid>
+      <main>
+        <BackToTop />
 
-                <Grid item xl={11} lg={10} md={10} sm={7} xs={7}>
-                  <Card>
-                    <CardContent>
-                      <Typography variant="h5" component="div">
-                        {movie.title} ({movie.original_title})
-                      </Typography>
-                      <Typography sx={{ mb: 1.5 }}>
-                        <FormattedDate
-                          value={
-                            new Date(`${movie.release_date}T03:00:00.000Z`)
-                          }
-                        />
-                        <br />
-                        {movie.genres.map((genere, index) => {
-                          return (
-                            <React.Fragment key={index}>
-                              {genere.name}/
-                            </React.Fragment>
-                          );
-                        })}
-                      </Typography>
-                      <Typography variant="body2">{movie.overview}</Typography>
-                    </CardContent>
-                  </Card>
-                  <br />
-                </Grid>
-                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                  <Grid container spacing={4}>
-                    <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-                      <Card>
-                        <CardContent>
-                          <Typography variant="h5" component="div">
-                            Watch Providers
-                          </Typography>
-                          {Object.keys(watchProviders).length === 0 ? (
-                            <>Loading</>
-                          ) : (
-                            <WatchProviders providers={watchProviders} />
-                          )}
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                    <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
-                      <Card>
-                        <CardContent>
-                          <Typography variant="h5" component="div">
-                            Multimedia
-                          </Typography>
-                          <ContainerImages images={images} />
-                        </CardContent>
-                      </Card>
-                    </Grid>
+        <Box
+          sx={{
+            pt: 3,
+            pb: 6,
+          }}
+          style={styles.paperContainer}
+        >
+          <Container sx={{ py: 8 }} maxWidth={false}>
+            <Grid container spacing={4}>
+              <Grid item xl={1} lg={2} md={2} sm={5} xs={5}>
+                <Card>
+                  <CardMedia
+                    component="img"
+                    image={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                    alt="green iguana"
+                  />
+                </Card>
+              </Grid>
 
-                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                      <Grid container spacing={4}>
-                        {Object.keys(credits).length === 0 ? (
-                          <>Loading credits</>
+              <Grid item xl={11} lg={10} md={10} sm={7} xs={7}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="h5" component="div">
+                      {movie.title} ({movie.original_title})
+                    </Typography>
+                    <Typography sx={{ mb: 1.5 }}>
+                      <FormattedDate
+                        value={new Date(`${movie.release_date}T03:00:00.000Z`)}
+                      />
+                      <br />
+                      {movie.genres.map((genere, index) => {
+                        return (
+                          <React.Fragment key={index}>
+                            {genere.name}/
+                          </React.Fragment>
+                        );
+                      })}
+                    </Typography>
+                    <Typography variant="body2">{movie.overview}</Typography>
+                  </CardContent>
+                </Card>
+                <br />
+              </Grid>
+              <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                <Grid container spacing={4}>
+                  <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+                    <Card>
+                      <CardContent>
+                        <Typography variant="h5" component="div">
+                          Watch Providers
+                        </Typography>
+                        {Object.keys(watchProviders).length === 0 ? (
+                          <>Loading</>
                         ) : (
-                          <ContainerCredits credits={credits} />
+                          <WatchProviders providers={watchProviders} />
                         )}
-                      </Grid>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
+                    <Card>
+                      <CardContent>
+                        <Typography variant="h5" component="div">
+                          Multimedia
+                        </Typography>
+                        <ContainerImages images={images} />
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                    <Grid container spacing={4}>
+                      {Object.keys(credits).length === 0 ? (
+                        <>Loading credits</>
+                      ) : (
+                        <ContainerCredits credits={credits} />
+                      )}
                     </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-            </Container>
-          </Box>
-        </main>
-      )}
+            </Grid>
+          </Container>
+        </Box>
+      </main>
     </>
   );
 }

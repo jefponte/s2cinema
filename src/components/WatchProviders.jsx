@@ -9,34 +9,54 @@ export default function WatchProviders(props) {
   const { providers } = props;
   let countries = [];
   const language = navigator.language.split("-")[0];
+
   Object.keys(providers.results).forEach(function (item) {
     let regionNames = new Intl.DisplayNames([language], { type: "region" });
     countries.push({ label: regionNames.of(item), code: item });
   });
+
+  let defaultCountry = {};
+  if(countries[0] !== null && countries[0] !== undefined){
+    defaultCountry = countries[0];
+  }
 
   function isPT(c) {
     if(Object.keys(c).length === 0 || c === undefined){
       return false;
     }
     return c.code === "BR";
-    
   }
-
-  let defaultCountry = countries[0] !== null ? countries[0] : {};
+  
   if (language === "pt") {
     let def2 = countries.find(isPT);
     if (def2 !== undefined) {
       defaultCountry = def2;
     }
   }
+
   const [country, setCountry] = useState(defaultCountry);
   const types = ["flatrate", "rent", "buy"];
+
+  if(country === null){
+    return "";
+  }
+  if(country === undefined){
+    return "";
+  }
   if(countries === undefined){
     return "";
   }
-  if(Object.keys(countries).length === 0 ){
+  if(countries === null){
     return "";
   }
+  if(countries.length === 0 ){
+    return "";
+  }
+  if(Object.keys(countries).length === 0){
+    return "";
+  }
+
+
   return (
     <>
       
