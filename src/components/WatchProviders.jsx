@@ -14,7 +14,18 @@ export default function WatchProviders(props) {
     countries.push({ label: regionNames.of(item), code: item });
   });
 
-  const [country, setCountry] = useState(countries[0]);
+  function isPT(pais) {
+    return pais.code === 'BR';
+  }
+
+  let defaultCountry = ((countries[0] !== null) ? countries[0]: {});
+  if(language === 'pt'){
+    let def2 =  countries.find(isPT);
+    if(def2 !== undefined){
+      defaultCountry = def2;
+    }
+  }
+  const [country, setCountry] = useState(defaultCountry);
   const types = ["flatrate", "rent", "buy"];
 
   return (
