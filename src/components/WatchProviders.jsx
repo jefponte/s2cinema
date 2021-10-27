@@ -8,8 +8,9 @@ import Autocomplete from "@mui/material/Autocomplete";
 export default function WatchProviders(props) {
   const { providers } = props;
   let countries = [];
+  const language = navigator.language.split("-")[0];
   Object.keys(providers.results).forEach(function (item) {
-    let regionNames = new Intl.DisplayNames([item], { type: "region" });
+    let regionNames = new Intl.DisplayNames([language], { type: "region" });
     countries.push({ label: regionNames.of(item), code: item });
   });
 
@@ -18,8 +19,6 @@ export default function WatchProviders(props) {
 
   return (
     <>
-      {console.log(countries)}
-
       <Autocomplete
         id="country-select-demo"
         sx={{ width: 300 }}
@@ -87,51 +86,9 @@ export default function WatchProviders(props) {
         }
       })}
 
-      {/*
-       
-      
-
-          
-
-
-     
-      
-      <Typography variant="subtitle1" component="p">
-        <FormattedMessage
-          id="movieSelect.rent"
-          description="rent"
-          defaultMessage="rent"
-        />
-      </Typography>
-
-      {providers.results[country.code].rent.map((item, index) => {
-        return (
-          <img
-            src={`https://image.tmdb.org/t/p/original/${item.logo_path}`}
-            height={50}
-            key={item.provider_id}
-            alt={item.provider_name}
-          />
-        );
-      })}
-      <Typography variant="subtitle1" component="p">
-        <FormattedMessage
-          id="movieSelect.buy"
-          description="buy"
-          defaultMessage="buy"
-        />
-      </Typography>
-
-      {providers.results[country.code].buy.map((item, index) => {
-        return (
-          <img
-            src={`https://image.tmdb.org/t/p/original/${item.logo_path}`}
-            height={50}
-            key={item.provider_id}
-            alt={item.provider_name}
-          />
-        );
-      })} */}
     </>
   );
 }
+
+
+
