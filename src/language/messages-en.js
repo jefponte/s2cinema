@@ -5,5 +5,6 @@ export const en = {
     'movieSelect.buy': 'Buy', 
     'movieSelect.flatrate': 'Flatrate', 
     'movieSelect.rent': 'rent', 
-    'movieSelect.crew': 'Crew'
+    'movieSelect.crew': 'Crew', 
+    'movieSelect.cast': 'Cast'
 };

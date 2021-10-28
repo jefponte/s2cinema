@@ -12,7 +12,8 @@ import {
 import { FormattedDate } from "react-intl";
 import { useParams } from "react-router";
 import {
-  getMovieTMDB,
+  getPerson,
+  getMovieCredits,
   getWatchProviders,
   getCredits,
   getImages,
@@ -26,6 +27,7 @@ import ContainerImages from "../components/ContainerImages";
 
 import { useLocation } from "react-router-dom";
 import ContainerVideos from "../components/ContainerVideos";
+import ContainerMovieCredits from "../components/ContainerMovieCredits";
 
 function CardProviders({ watchProviders }) {
   if (watchProviders === null) {
@@ -78,11 +80,11 @@ function CardProviders({ watchProviders }) {
   );
 }
 
-export default function MovieSelected(props) {
+export default function PersonSelected(props) {
   const [search, setSearch] = useState(false);
   const location = useLocation();
   const { id } = useParams();
-  const [movie, setMovie] = useState({});
+  const [person, setPerson] = useState({});
   const [watchProviders, setWatchProviders] = useState(null);
   const [credits, setCredits] = useState({});
   const [images, setImages] = useState({});
@@ -93,12 +95,13 @@ export default function MovieSelected(props) {
   }, [location]);
 
   useEffect(() => {
-    setMovie({});
-    getMovieTMDB(id, setMovie);
-    getWatchProviders(id, setWatchProviders);
-    getCredits(id, setCredits);
-    getImages(id, setImages);
-    getVideos(id, setVideos);
+    setPerson({});
+    getPerson(id, setPerson);
+    //getMovieCredits(id, setMovies);
+    // getWatchProviders(id, setWatchProviders);
+    getMovieCredits(id, setCredits);
+    // getImages(id, setImages);
+    // getVideos(id, setVideos);
 
   }, [id, search]);
 
@@ -107,7 +110,7 @@ export default function MovieSelected(props) {
       backgroundColor: "#2b2b2b",
     },
   };
-  if (movie === null || movie === undefined) {
+  if (person === null || person === undefined) {
     return (
       <>
         <MovieSearch
@@ -119,7 +122,7 @@ export default function MovieSelected(props) {
       </>
     );
   }
-  if (Object.keys(movie).length === 0) {
+  if (Object.keys(person).length === 0) {
     return (
       <>
         <MovieSearch
@@ -165,42 +168,40 @@ export default function MovieSelected(props) {
                 <Card>
                   <CardMedia
                     component="img"
-                    image={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}
+                    image={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${person.profile_path}`}
                     alt="green iguana"
                   />
                 </Card>
               </Grid>
-
+              
               <Grid item xl={11} lg={10} md={10} sm={7} xs={7}>
                 <Card>
                   <CardContent>
                     <Typography variant="h5" component="div">
-                      {movie.title} ({movie.original_title})
+                      {person.name} 
                     </Typography>
                     <Typography sx={{ mb: 1.5 }}>
-                      {movie.release_date === "" ? "???" : <FormattedDate
-                        value={new Date(`${movie.release_date}T03:00:00.000Z`)}
+                      {person.birthday === "" ? "???" : <FormattedDate
+                        value={new Date(`${person.birthday}T03:00:00.000Z`)}
+                      />}({person.place_of_birth})<br/>
+                       {person.deathday === "" || person.deathday === null || person.deathday === undefined ? 
+                       "-" : <FormattedDate
+                        value={new Date(`${person.deathday}T03:00:00.000Z`)}
                       />}
-                      
-                      <br />
-                      {movie.genres.map((genere, index) => {
-                        return (
-                          <React.Fragment key={index}>
-                            {genere.name}/
-                          </React.Fragment>
-                        );
-                      })}
+              
                     </Typography>
-                    <Typography variant="body2">{movie.overview}</Typography>
+                    <Typography variant="body2">{person.biography}</Typography> 
                   </CardContent>
                 </Card>
                 <br />
               </Grid>
+              
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                 <Grid container spacing={4}>
-                  <CardProviders watchProviders={watchProviders} />
+
+                  {/* <CardProviders watchProviders={watchProviders} /> */}
                         
-                  <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
+                  {/* <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
                     <Card>
                       <CardContent>
                         <Typography variant="h5" component="div">
@@ -210,14 +211,14 @@ export default function MovieSelected(props) {
                         <ContainerVideos videos={videos} />
                       </CardContent>
                     </Card>
-                  </Grid>
+                  </Grid> */}
 
                  
                     
                       {Object.keys(credits).length === 0 ? (
                         <>Loading credits</>
                       ) : (
-                        <ContainerCredits credits={credits} />
+                        <ContainerMovieCredits credits={credits} />
                       )}
                     
                 </Grid>

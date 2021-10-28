@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "../pages/Home";
 import MovieSelected from "../pages/MovieSelected";
+import PersonSelected from "../pages/PersonSelected";
+
 
 function Routes() {
   return (
@@ -12,8 +14,9 @@ function Routes() {
         <Route path="/movie/:id">
           <MovieSelected />
         </Route>
+
         <Route path="/person/:id">
-          <Home />
+          <PersonSelected />
         </Route>
         <Route>
           <Home/>

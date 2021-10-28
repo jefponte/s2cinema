@@ -24,6 +24,7 @@ export const getMovieTMDB = async (id, setMovie) => {
   const response = await apiTMDB.get(`3/movie/${id}`);
   setMovie(response.data);
 };
+
 export const getWatchProviders = async (id, setWatchProviders) => {
   const response = await apiTMDB.get(`3/movie/${id}/watch/providers`);
   setWatchProviders(response.data);
@@ -45,4 +46,20 @@ export const getVideos = async (id, setVideos) => {
     params: { language: null },
   });
   setVideos({results: [...response.data.results, ...response2.data.results]});
+};
+
+
+
+export const getPerson = async (id, setPerson) => {
+  const response = await apiTMDB.get(`3/person/${id}`);
+  setPerson(response.data);
+};
+/**
+ * 
+ * @param {int} id 
+ * @param {function} setMovies
+ */
+export const getMovieCredits = async (id, setMovies) => {
+  const response = await apiTMDB.get(`3/person/${id}/movie_credits`);
+  setMovies(response.data);
 };

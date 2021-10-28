@@ -4,5 +4,7 @@ export const fr = {
 	'app.slogan': 'Partagez votre liste de films préférés.', 
     'movieSelect.buy': 'Acheter', 
     'movieSelect.flatrate': 'Forfait',
-    'movieSelect.rent': 'Louer' 
+    'movieSelect.rent': 'Louer', 
+    'movieSelect.crew': 'Équipage', 
+    'movieSelect.cast': 'Jeter'
 };

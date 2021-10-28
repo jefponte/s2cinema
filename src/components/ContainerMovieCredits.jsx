@@ -19,15 +19,16 @@ const NamePerson = styled(({ color, ...otherProps }) => (
   text-overflow: ellipsis;
 `;
 
-function Description({ type, people }) {
+function Description({ type, movie }) {
   if (type === "crew") {
-    return <NamePerson>{people.job}</NamePerson>;
+    return <NamePerson>{movie.job}</NamePerson>;
   } else if (type === "cast") {
-    return <NamePerson>{people.character}</NamePerson>;
+    return <NamePerson>{movie.character}</NamePerson>;
   }
 }
+
 function ItemCredits(props) {
-  const { people, type } = props;
+  const { movie, type } = props;
   return (
     <Grid item xl={1} lg={2} md={2} sm={6} xs={6}>
       <Card
@@ -37,33 +38,78 @@ function ItemCredits(props) {
           flexDirection: "column",
         }}
       >
-        <Link href={`/person/${people.id}`}>
-        <CardMedia
-          component="img"
-          sx={{
-            // 16:9
-            pt: "56.25%",
-          }}
-          image={
-            people.profile_path === null
-              ? ImageNoPoster
-              : `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${people.profile_path}`
-          }
-          alt="random"
-        />
+        <Link href={`/movie/${movie.id}`}>
+          <CardMedia
+            component="img"
+            sx={{
+              // 16:9
+              pt: "56.25%",
+            }}
+            image={
+              movie.poster_path === null || movie.poster_path === undefined
+                ? ImageNoPoster
+                : `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`
+            }
+            alt="random"
+          />
         </Link>
         <CardContent>
           <NamePerson sx={{ fontSize: 14 }} gutterBottom>
-            {people.name}
+            {movie.title}
           </NamePerson>
-          <Description type={type} people={people} />
+          <Description type={type} movie={movie} />
         </CardContent>
       </Card>
     </Grid>
   );
 }
 
-export default function ContainerCredits(props) {
+function ShowAcordionCrew(props){
+  const {credits} = props;
+  if(credits.crew === null || credits.crew === undefined){
+    return (<></>);
+  }
+  if(credits.crew.length === 0){
+    return (<></>);
+  }
+  
+  let jobs = {};
+  credits.crew.forEach((movie) => {
+    if(jobs[movie.job] === undefined){
+      jobs[movie.job] = [];
+    }
+    jobs[movie.job].push(movie);
+  });
+
+  console.log(jobs);
+  return (<>
+  {Object.keys(jobs).map((element, index) => {
+    return (
+      <Accordion key={index}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography>
+              {element }({jobs[element].length})
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Grid container spacing={4}>
+              {jobs[element].map((movie, index2) => {
+                return <ItemCredits type={"crew"} movie={movie} key={index2} />;
+              })}
+            </Grid>
+          </AccordionDetails>
+        </Accordion>);
+  })}
+  </>);
+
+
+}
+
+export default function ContainerMovieCredits(props) {
   const { credits } = props;
   return (
     <React.Fragment>
@@ -79,43 +125,20 @@ export default function ContainerCredits(props) {
                 id={`movieSelect.cast`}
                 description={"cast"}
                 defaultMessage={"Cast"}
-              />
+              />({credits.cast.length})
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Grid container spacing={4}>
-              {credits.cast.map((people, index) => {
-                return (
-                  <ItemCredits type={"cast"} people={people} key={index} />
-                );
+              {credits.cast.map((movie, index) => {
+                return <ItemCredits type={"cast"} movie={movie} key={index} />;
               })}
             </Grid>
           </AccordionDetails>
         </Accordion>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography>
-              <FormattedMessage
-                id={`movieSelect.crew`}
-                description={"Crew"}
-                defaultMessage={"Crew"}
-              />
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Grid container spacing={4}>
-              {credits.crew.map((people, index) => {
-                return (
-                  <ItemCredits type={"crew"} people={people} key={index} />
-                );
-              })}
-            </Grid>
-          </AccordionDetails>
-        </Accordion>
+
+        <ShowAcordionCrew credits={credits}/>
+        
       </Grid>
     </React.Fragment>
   );
