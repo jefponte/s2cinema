@@ -6,6 +6,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Link } from "@material-ui/core";
 
 export default function ContainerImages(props) {
   const { images } = props;
@@ -29,29 +30,42 @@ export default function ContainerImages(props) {
               height: 500,
               transform: "translateZ(0)",
             }}
-            cols={3}
+            cols={8}
             gap={1}
+            
           >
             {images.backdrops.map((item, index) => {
               return (
-                <ImageListItem key={index}>
-                  <img
-                    src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${item.file_path}`}
-                    alt={index}
-                    loading="lazy"
-                  />
-                </ImageListItem>
+                <Link
+                  key={index}
+                  color="inherit"
+                  href={`https://image.tmdb.org/t/p/original/${item.file_path}`}
+                >
+                  <ImageListItem>
+                    <img
+                      src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${item.file_path}`}
+                      alt={index}
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                </Link>
               );
             })}
             {images.posters.map((item, index) => {
               return (
-                <ImageListItem key={index}>
-                  <img
-                    src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${item.file_path}`}
-                    alt={index}
-                    loading="lazy"
-                  />
-                </ImageListItem>
+                <Link
+                  key={index}
+                  color="inherit"
+                  href={`https://image.tmdb.org/t/p/original/${item.file_path}`}
+                >
+                  <ImageListItem>
+                    <img
+                      src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${item.file_path}`}
+                      alt={index}
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                </Link>
               );
             })}
           </ImageList>
