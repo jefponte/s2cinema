@@ -27,6 +27,10 @@ export const getImages = async (id, setImages) => {
   setImages(response.data);
 };
 export const getVideos = async (id, setVideos) => {
+
   const response = await apiTMDB.get(`3/movie/${id}/videos`);
-  setVideos(response.data);
+  const response2 = await apiTMDB.get(`3/movie/${id}/videos`, {
+    params: { language: null },
+  });
+  setVideos({results: [...response.data.results, ...response2.data.results]});
 };
