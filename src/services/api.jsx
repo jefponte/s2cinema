@@ -8,6 +8,18 @@ export const apiTMDB = axios.create({
   },
 });
 
+
+
+export const apiPopCorn = axios.create({
+  baseURL: "https://popcorn-ru.tk/"
+});
+
+
+export const getMoviePopCorn = async (idIMDB, setMovie) => {
+  const response = await apiTMDB.get(`/movie/${idIMDB}`);
+  setMovie(response.data);
+};
+
 export const getMovieTMDB = async (id, setMovie) => {
   const response = await apiTMDB.get(`3/movie/${id}`);
   setMovie(response.data);

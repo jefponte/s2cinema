@@ -61,13 +61,13 @@ export default function Header(props) {
       <AppBar position="relative">
         <Toolbar>
           <Link color="inherit" href="/">
-            <img src={ImageLogo} alt="logo" width="300" />
+            <img src={ImageLogo} alt="logo" width="250" />
           </Link>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ flexGrow: 1, display: {xg: "block",  lg:"block",  md:"block",  xs: "none", sm: "none" } }}
           >
            &nbsp; {/* Filtros */}
           </Typography>
