@@ -14,81 +14,23 @@ import { useParams } from "react-router";
 import {
   getPerson,
   getMovieCredits,
-  getWatchProviders,
-  getCredits,
-  getImages,
-  getVideos
+  getPersonImages,
 } from "../services/api";
-import WatchProviders from "../components/WatchProviders";
-import ContainerCredits from "../components/ContainerCredits";
+
 import { BackToTop } from "material-ui-back-to-top";
 import MovieSearch from "./MovieSearch";
 import ContainerImages from "../components/ContainerImages";
 
 import { useLocation } from "react-router-dom";
-import ContainerVideos from "../components/ContainerVideos";
 import ContainerMovieCredits from "../components/ContainerMovieCredits";
-
-function CardProviders({ watchProviders }) {
-  if (watchProviders === null) {
-    return <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-    <Card>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          Watch Providers
-        </Typography>
-        NULL
-      </CardContent>
-    </Card>
-  </Grid>;
-  }
-  if (watchProviders === undefined) {
-    return <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-    <Card>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          Watch Providers
-        </Typography>
-        Undefined
-      </CardContent>
-    </Card>
-  </Grid>;
-  }
-  if (Object.keys(watchProviders.results).length === 0) {
-    return  <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-    <Card>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          Watch Providers
-        </Typography>
-        Empty
-      </CardContent>
-    </Card>
-  </Grid>;
-  }
-  return (
-    <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-      <Card>
-        <CardContent>
-          <Typography variant="h5" component="div">
-            Watch Providers
-          </Typography>
-          <WatchProviders providers={watchProviders} />
-        </CardContent>
-      </Card>
-    </Grid>
-  );
-}
 
 export default function PersonSelected(props) {
   const [search, setSearch] = useState(false);
   const location = useLocation();
   const { id } = useParams();
   const [person, setPerson] = useState({});
-  const [watchProviders, setWatchProviders] = useState(null);
   const [credits, setCredits] = useState({});
   const [images, setImages] = useState({});
-  const [videos, setVideos] = useState({});
 
   useEffect(() => {
     setSearch(false);
@@ -97,12 +39,8 @@ export default function PersonSelected(props) {
   useEffect(() => {
     setPerson({});
     getPerson(id, setPerson);
-    //getMovieCredits(id, setMovies);
-    // getWatchProviders(id, setWatchProviders);
     getMovieCredits(id, setCredits);
-    // getImages(id, setImages);
-    // getVideos(id, setVideos);
-
+    getPersonImages(id, setImages);
   }, [id, search]);
 
   let styles = {
@@ -173,54 +111,61 @@ export default function PersonSelected(props) {
                   />
                 </Card>
               </Grid>
-              
+
               <Grid item xl={11} lg={10} md={10} sm={7} xs={7}>
                 <Card>
                   <CardContent>
                     <Typography variant="h5" component="div">
-                      {person.name} 
+                      {person.name}
                     </Typography>
                     <Typography sx={{ mb: 1.5 }}>
-                      {person.birthday === "" ? "???" : <FormattedDate
-                        value={new Date(`${person.birthday}T03:00:00.000Z`)}
-                      />}({person.place_of_birth})<br/>
-                       {person.deathday === "" || person.deathday === null || person.deathday === undefined ? 
-                       "-" : <FormattedDate
-                        value={new Date(`${person.deathday}T03:00:00.000Z`)}
-                      />}
-              
+                      {person.birthday === "" ? (
+                        "???"
+                      ) : (
+                        <FormattedDate
+                          value={new Date(`${person.birthday}T03:00:00.000Z`)}
+                        />
+                      )}
+                      ({person.place_of_birth})<br />
+                      {person.deathday === "" ||
+                      person.deathday === null ||
+                      person.deathday === undefined ? (
+                        "-"
+                      ) : (
+                        <FormattedDate
+                          value={new Date(`${person.deathday}T03:00:00.000Z`)}
+                        />
+                      )}
                     </Typography>
-                    <Typography variant="body2">{person.biography}</Typography> 
+                    <Typography variant="body2">{person.biography}</Typography>
                   </CardContent>
                 </Card>
                 <br />
               </Grid>
-              
+
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                 <Grid container spacing={4}>
-
                   {/* <CardProviders watchProviders={watchProviders} /> */}
-                        
-                  {/* <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
-                    <Card>
-                      <CardContent>
-                        <Typography variant="h5" component="div">
-                          Multimedia
-                        </Typography>
-                        <ContainerImages images={images} />
-                        <ContainerVideos videos={videos} />
-                      </CardContent>
-                    </Card>
-                  </Grid> */}
+                  {Object.keys(images).length === 0 ? (
+                    <></>
+                  ) : (
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <Card>
+                        <CardContent>
+                          <Typography variant="h5" component="div">
+                            Multimedia
+                          </Typography>
+                          <ContainerImages images={images} />
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  )}
 
-                 
-                    
-                      {Object.keys(credits).length === 0 ? (
-                        <>Loading credits</>
-                      ) : (
-                        <ContainerMovieCredits credits={credits} />
-                      )}
-                    
+                  {Object.keys(credits).length === 0 ? (
+                    <>Loading credits</>
+                  ) : (
+                    <ContainerMovieCredits credits={credits} />
+                  )}
                 </Grid>
               </Grid>
             </Grid>

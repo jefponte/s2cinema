@@ -81,7 +81,6 @@ function ShowAcordionCrew(props){
     jobs[movie.job].push(movie);
   });
 
-  console.log(jobs);
   return (<>
   {Object.keys(jobs).map((element, index) => {
     return (
