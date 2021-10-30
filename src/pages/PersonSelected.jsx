@@ -92,10 +92,9 @@ export default function PersonSelected(props) {
 
       <main>
         <BackToTop />
-
         <Box
           sx={{
-            pt: 3,
+            pt: 25,
             pb: 6,
           }}
           style={styles.paperContainer}

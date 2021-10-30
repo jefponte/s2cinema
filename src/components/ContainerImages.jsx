@@ -1,12 +1,6 @@
 import * as React from "react";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Link } from "@material-ui/core";
+import {Accordion, Typography, AccordionDetails, AccordionSummary,  Link, ImageList, ImageListItem } from "@material-ui/core";
 
 export default function ContainerImages(props) {
   const { images } = props;

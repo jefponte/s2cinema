@@ -1,6 +1,5 @@
-import { Container, Grid } from "@mui/material";
-import { Box } from "@mui/system";
 import React, { useRef, useCallback, useState } from "react";
+import { Container, Grid, Box } from "@material-ui/core";
 import useMovieSearch from "../services/useMovieSearch";
 import Header from "../components/Header";
 import MovieItem from "../components/MovieItem";
@@ -56,7 +55,7 @@ export default function MovieSearch(props) {
         <Box
           sx={{
             bgcolor: "background.paper",
-            pt: 1,
+            pt: 25,
             pb: 6,
           }}
         >

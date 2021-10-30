@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, Box, TextField } from "@material-ui/core";
 import { FormattedMessage } from "react-intl";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
+import { Autocomplete } from "@mui/material";
+
 
 export default function WatchProviders(props) {
   const { providers } = props;

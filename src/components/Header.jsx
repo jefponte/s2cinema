@@ -1,13 +1,26 @@
-import React from "react";
+import React from 'react';
 import { styled, alpha } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { AppBar } from "@material-ui/core";
-import ImageLogo from "../assets/images/logo.png";
+
 import { Link } from "@material-ui/core";
+import ImageLogo from "../assets/images/logo.png";
+import {
+  makeStyles,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Switch,
+} from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
+
+import Apps from '@material-ui/icons/Apps';
+import MoreVert from '@material-ui/icons/MoreVert';
+import VideoCall from '@material-ui/icons/VideoCall';
+
+
+
+
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -51,26 +64,88 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Header(props) {
-  const { onSearch } = props;
+const useStyles = makeStyles((theme) => ({
+  root: {
+    height: '100vh',
+    backgroundColor: theme.palette.background.dark,
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  logo: {
+    height: 25,
+  },
+  drawer: {
+    width: 240,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: 240,
+    borderRight: 'none',
+  },
+  menuIcon: {
+    paddingRight: theme.spacing(5),
+    paddingLeft: theme.spacing(6),
+  },
+  icons: {
+    paddingRight: theme.spacing(5),
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  listItemText: {
+    fontSize: 14,
+  },
+  listItem: {
+    paddingTop: 4,
+    paddingBottom: 4,
+  },
+  subheader: {
+    textTransform: 'uppercase',
+  },
+}));
+
+
+
+function Header(props) {
+  const classes = useStyles();
+  const theme = useTheme();
+  const { onSearch,darkMode, setDarkMode } = props;
   function handleChange(event) {
     onSearch(event.target.value);
   }
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="relative">
+
+      <AppBar color='inherit' className={classes.appBar}>
         <Toolbar>
-          <Link color="inherit" href="/">
-            <img src={ImageLogo} alt="logo" width="250" />
+        <Link color="inherit" href="/">
+
+          <img
+            src={
+              theme.palette.type === 'dark'
+                ? ImageLogo
+                : ImageLogo
+            }
+            alt='logo'
+            className={classes.logo}
+          />
           </Link>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: {xg: "block",  lg:"block",  md:"block",  xs: "none", sm: "none" } }}
-          >
-           &nbsp; {/* Filtros */}
-          </Typography>
+          <div className={classes.grow} />
+          {/* <Switch
+            value={darkMode}
+            onChange={() => setDarkMode(!darkMode)}
+            className={classes.icons}
+          />
+          <IconButton className={classes.icons}>
+            <VideoCall />
+          </IconButton>
+          <IconButton className={classes.icons}>
+            <Apps />
+          </IconButton>
+          <IconButton className={classes.icons}>
+            <MoreVert />
+          </IconButton> */}
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -83,6 +158,9 @@ export default function Header(props) {
           </Search>
         </Toolbar>
       </AppBar>
-    </Box>
+     
+
   );
 }
+
+export default Header;

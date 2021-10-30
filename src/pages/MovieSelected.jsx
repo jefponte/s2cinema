@@ -104,7 +104,9 @@ export default function MovieSelected(props) {
 
   let styles = {
     paperContainer: {
+      
       backgroundColor: "#2b2b2b",
+      
     },
   };
   if (movie === null || movie === undefined) {
@@ -131,6 +133,15 @@ export default function MovieSelected(props) {
       </>
     );
   }
+  console.log(movie.backdrop_path);
+  if(movie.backdrop_path !== null && movie.backdrop_path !== undefined){
+    styles = {
+      paperContainer: {
+        backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}") `
+      },
+    };
+  }
+  
 
   if (search) {
     return (
@@ -154,7 +165,7 @@ export default function MovieSelected(props) {
 
         <Box
           sx={{
-            pt: 3,
+            pt: 25,
             pb: 6,
           }}
           style={styles.paperContainer}
