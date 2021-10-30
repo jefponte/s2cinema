@@ -16,7 +16,7 @@ import {
   getWatchProviders,
   getCredits,
   getImages,
-  getVideos
+  getVideos,
 } from "../services/api";
 import WatchProviders from "../components/WatchProviders";
 import ContainerCredits from "../components/ContainerCredits";
@@ -29,40 +29,46 @@ import ContainerVideos from "../components/ContainerVideos";
 
 function CardProviders({ watchProviders }) {
   if (watchProviders === null) {
-    return <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-    <Card>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          Watch Providers
-        </Typography>
-        NULL
-      </CardContent>
-    </Card>
-  </Grid>;
+    return (
+      <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+        <Card>
+          <CardContent>
+            <Typography variant="h5" component="div">
+              Watch Providers
+            </Typography>
+            NULL
+          </CardContent>
+        </Card>
+      </Grid>
+    );
   }
   if (watchProviders === undefined) {
-    return <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-    <Card>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          Watch Providers
-        </Typography>
-        Undefined
-      </CardContent>
-    </Card>
-  </Grid>;
+    return (
+      <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+        <Card>
+          <CardContent>
+            <Typography variant="h5" component="div">
+              Watch Providers
+            </Typography>
+            Undefined
+          </CardContent>
+        </Card>
+      </Grid>
+    );
   }
   if (Object.keys(watchProviders.results).length === 0) {
-    return  <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-    <Card>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          Watch Providers
-        </Typography>
-        Empty
-      </CardContent>
-    </Card>
-  </Grid>;
+    return (
+      <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+        <Card>
+          <CardContent>
+            <Typography variant="h5" component="div">
+              Watch Providers
+            </Typography>
+            Empty
+          </CardContent>
+        </Card>
+      </Grid>
+    );
   }
   return (
     <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
@@ -99,14 +105,11 @@ export default function MovieSelected(props) {
     getCredits(id, setCredits);
     getImages(id, setImages);
     getVideos(id, setVideos);
-
   }, [id, search]);
 
   let styles = {
     paperContainer: {
-      
       backgroundColor: "#2b2b2b",
-      
     },
   };
   if (movie === null || movie === undefined) {
@@ -134,14 +137,13 @@ export default function MovieSelected(props) {
     );
   }
   console.log(movie.backdrop_path);
-  if(movie.backdrop_path !== null && movie.backdrop_path !== undefined){
+  if (movie.backdrop_path !== null && movie.backdrop_path !== undefined) {
     styles = {
       paperContainer: {
-        backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}") `
+        backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}") `,
       },
     };
   }
-  
 
   if (search) {
     return (
@@ -189,10 +191,16 @@ export default function MovieSelected(props) {
                       {movie.title} ({movie.original_title})
                     </Typography>
                     <Typography sx={{ mb: 1.5 }}>
-                      {movie.release_date === "" ? "???" : <FormattedDate
-                        value={new Date(`${movie.release_date}T03:00:00.000Z`)}
-                      />}
-                      
+                      {movie.release_date === "" ? (
+                        "???"
+                      ) : (
+                        <FormattedDate
+                          value={
+                            new Date(`${movie.release_date}T03:00:00.000Z`)
+                          }
+                        />
+                      )}
+
                       <br />
                       {movie.genres.map((genere, index) => {
                         return (
@@ -210,27 +218,17 @@ export default function MovieSelected(props) {
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                 <Grid container spacing={4}>
                   <CardProviders watchProviders={watchProviders} />
-                        
+
                   <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
-                    <Card>
-                      <CardContent>
-                        <Typography variant="h5" component="div">
-                          Multimedia
-                        </Typography>
-                        <ContainerImages images={images} />
-                        <ContainerVideos videos={videos} />
-                      </CardContent>
-                    </Card>
+                    <ContainerImages images={images} />
+                    <ContainerVideos videos={videos} />
                   </Grid>
 
-                 
-                    
-                      {Object.keys(credits).length === 0 ? (
-                        <>Loading credits</>
-                      ) : (
-                        <ContainerCredits credits={credits} />
-                      )}
-                    
+                  {Object.keys(credits).length === 0 ? (
+                    <>Loading credits</>
+                  ) : (
+                    <ContainerCredits credits={credits} />
+                  )}
                 </Grid>
               </Grid>
             </Grid>

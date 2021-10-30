@@ -1,14 +1,10 @@
 import * as React from "react";
-import Typography from "@mui/material/Typography";
 import { Card, CardContent, CardMedia, Grid } from "@material-ui/core";
 import ImageNoPoster from "../assets/images/noImage.png";
 import styled from "styled-components";
 import { FormattedMessage } from "react-intl";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Link } from "@mui/material";
+import {Accordion, Typography, AccordionDetails, AccordionSummary,  Link, ImageList, ImageListItem } from "@material-ui/core";
 
 const NamePerson = styled(({ color, ...otherProps }) => (
   <Typography {...otherProps} />

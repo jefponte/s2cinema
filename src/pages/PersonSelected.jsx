@@ -11,11 +11,7 @@ import {
 
 import { FormattedDate } from "react-intl";
 import { useParams } from "react-router";
-import {
-  getPerson,
-  getMovieCredits,
-  getPersonImages,
-} from "../services/api";
+import { getPerson, getMovieCredits, getPersonImages } from "../services/api";
 
 import { BackToTop } from "material-ui-back-to-top";
 import MovieSearch from "./MovieSearch";
@@ -143,29 +139,18 @@ export default function PersonSelected(props) {
               </Grid>
 
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                <Grid container spacing={4}>
                   {/* <CardProviders watchProviders={watchProviders} /> */}
                   {Object.keys(images).length === 0 ? (
                     <></>
                   ) : (
-                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                      <Card>
-                        <CardContent>
-                          <Typography variant="h5" component="div">
-                            Multimedia
-                          </Typography>
-                          <ContainerImages images={images} />
-                        </CardContent>
-                      </Card>
-                    </Grid>
+                      <ContainerImages images={images} />
                   )}
 
-                  {Object.keys(credits).length === 0 ? (
-                    <>Loading credits</>
-                  ) : (
-                    <ContainerMovieCredits credits={credits} />
-                  )}
-                </Grid>
+                    {Object.keys(credits).length === 0 ? (
+                      <>Loading credits</>
+                    ) : (
+                      <ContainerMovieCredits credits={credits} />
+                    )}
               </Grid>
             </Grid>
           </Container>
