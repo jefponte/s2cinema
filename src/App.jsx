@@ -9,7 +9,7 @@ import {
 import messages from "./language/messages";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode] = useState(true);
   const language = navigator.language.split("-")[0];
   const theme = createTheme({
     spacing: 4,

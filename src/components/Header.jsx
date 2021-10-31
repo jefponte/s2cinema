@@ -8,15 +8,9 @@ import ImageLogo from "../assets/images/logo.png";
 import {
   makeStyles,
   AppBar,
-  Toolbar,
-  IconButton,
-  Switch,
+  Toolbar
 } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
-
-import Apps from '@material-ui/icons/Apps';
-import MoreVert from '@material-ui/icons/MoreVert';
-import VideoCall from '@material-ui/icons/VideoCall';
 
 
 
@@ -110,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
 function Header(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const { onSearch,darkMode, setDarkMode } = props;
+  const { onSearch } = props;
   function handleChange(event) {
     onSearch(event.target.value);
   }

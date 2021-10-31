@@ -11,7 +11,11 @@ import {
 
 import { FormattedDate } from "react-intl";
 import { useParams } from "react-router";
-import { getPerson, getMovieCredits, getPersonImages } from "../services/api";
+import {
+  getPerson,
+  getPersonCredits,
+  getPersonImages,
+} from "../services/api";
 
 import { BackToTop } from "material-ui-back-to-top";
 import MovieSearch from "./MovieSearch";
@@ -26,6 +30,7 @@ export default function PersonSelected(props) {
   const { id } = useParams();
   const [person, setPerson] = useState({});
   const [credits, setCredits] = useState({});
+  const [tvCredits, setTvCredits] = useState({});
   const [images, setImages] = useState({});
 
   useEffect(() => {
@@ -35,7 +40,8 @@ export default function PersonSelected(props) {
   useEffect(() => {
     setPerson({});
     getPerson(id, setPerson);
-    getMovieCredits(id, setCredits);
+    getPersonCredits(id, setCredits);
+    getPersonCredits(id, setTvCredits, "tv_credits");
     getPersonImages(id, setImages);
   }, [id, search]);
 
@@ -138,20 +144,39 @@ export default function PersonSelected(props) {
                 <br />
               </Grid>
 
-              <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                  {/* <CardProviders watchProviders={watchProviders} /> */}
-                  {Object.keys(images).length === 0 ? (
-                    <></>
-                  ) : (
-                      <ContainerImages images={images} />
-                  )}
+              {/* <CardProviders watchProviders={watchProviders} /> */}
+              {Object.keys(images).length === 0 ? (
+                <></>
+              ) : (
+                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                  <ContainerImages images={images} />
+                </Grid>
+              )}
 
-                    {Object.keys(credits).length === 0 ? (
-                      <>Loading credits</>
-                    ) : (
+              {Object.keys(credits).length === 0 ? (
+                <>Loading credits</>
+              ) : (
+                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                  <Card>
+                    <CardContent>
+                      Filmes
                       <ContainerMovieCredits credits={credits} />
-                    )}
-              </Grid>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              )}
+              {Object.keys(tvCredits).length === 0 ? (
+                <>Loading credits</>
+              ) : (
+                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                  <Card>
+                    <CardContent>
+                      Séries
+                      <ContainerMovieCredits type="tv" credits={tvCredits} />
+                    </CardContent>
+                  </Card>
+                </Grid>
+              )}
             </Grid>
           </Container>
         </Box>

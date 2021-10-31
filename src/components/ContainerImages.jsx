@@ -6,8 +6,6 @@ import {
   AccordionDetails,
   AccordionSummary,
   Link,
-  ImageList,
-  ImageListItem,
   Card,
   CardMedia,
   Grid,
@@ -34,7 +32,7 @@ export default function ContainerImages(props) {
               
           {images.backdrops.map((item, index) => {
             return (
-              <Grid  key={index} item xl={4} lg={2} md={2} sm={5} xs={5}>
+              <Grid  key={index} item xl={2} lg={2} md={2} sm={6} xs={6}>
               <Link
                 key={index}
                 color="inherit"
@@ -52,7 +50,7 @@ export default function ContainerImages(props) {
           })}
           {images.posters.map((item, index) => {
             return (
-              <Grid  key={index} item xl={4} lg={2} md={2} sm={5} xs={5}>
+              <Grid  key={index} item  xl={2} lg={2} md={2} sm={6} xs={6}>
               <Link
                 key={index}
                 color="inherit"

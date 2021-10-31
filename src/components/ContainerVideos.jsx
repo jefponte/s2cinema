@@ -1,6 +1,13 @@
 import * as React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Accordion, ImageList, ImageListItem, AccordionSummary,AccordionDetails,Typography } from "@material-ui/core";
+import {
+  Accordion,
+  Card,
+  Grid,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+} from "@material-ui/core";
 
 export default function ContainerVideos(props) {
   const { videos } = props;
@@ -23,29 +30,28 @@ export default function ContainerVideos(props) {
           <Typography>Videos</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <ImageList
-            sx={{
-              height: 1000,
-              transform: "translateZ(0)",
-            }}
-            cols={3}
-            gap={1}
-          >
+          <Grid container spacing={4}>
             {videos.results.map((item, index) => {
               return (
-                <ImageListItem key={index}>
-                  <iframe
-                    height="100%"
-                    src={`https://www.youtube.com/embed/${item.key}`}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    title="Embedded youtube"
-                  />
-                </ImageListItem>
+                <React.Fragment key={index}>
+                  <Grid item xl={4} lg={4} md={6} sm={6} xs={6}>
+                    <Card>
+                      <iframe
+                        
+                        width="100%"
+                        src={`https://www.youtube.com/embed/${item.key}`}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        title="Embedded youtube"
+                      />
+                      <br />
+                    </Card>
+                  </Grid>
+                </React.Fragment>
               );
             })}
-          </ImageList>
+          </Grid>
         </AccordionDetails>
       </Accordion>
     </>

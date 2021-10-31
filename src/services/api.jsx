@@ -25,16 +25,29 @@ export const getMovieTMDB = async (id, setMovie) => {
   setMovie(response.data);
 };
 
+export const getTvTMDB = async (id, setTv) => {
+  const response = await apiTMDB.get(`3/tv/${id}`);
+  setTv(response.data);
+};
+
 export const getWatchProviders = async (id, setWatchProviders) => {
   const response = await apiTMDB.get(`3/movie/${id}/watch/providers`);
   setWatchProviders(response.data);
 };
-export const getCredits = async (id, setCredits) => {
-  const response = await apiTMDB.get(`3/movie/${id}/credits`);
+
+export const getWatchProvidersTv = async (id, setWatchProviders) => {
+  const response = await apiTMDB.get(`3/tv/${id}/watch/providers`);
+  setWatchProviders(response.data);
+};
+export const getCredits = async (id, setCredits, type="movie") => {
+  
+  const response = await apiTMDB.get(`3/${type}/${id}/credits`);
   setCredits(response.data);
 };
-export const getImages = async (id, setImages) => {
-  const response = await apiTMDB.get(`3/movie/${id}/images`, {
+
+
+export const getImages = async (id, setImages, type = "movie") => {
+  const response = await apiTMDB.get(`3/${type}/${id}/images`, {
     params: { language: null },
   });
   setImages(response.data);
@@ -46,10 +59,10 @@ export const getPersonImages = async (id, setImages) => {
   });
   setImages(response.data);
 };
-export const getVideos = async (id, setVideos) => {
+export const getVideos = async (id, setVideos, type = "movie") => {
 
-  const response = await apiTMDB.get(`3/movie/${id}/videos`);
-  const response2 = await apiTMDB.get(`3/movie/${id}/videos`, {
+  const response = await apiTMDB.get(`3/${type}/${id}/videos`);
+  const response2 = await apiTMDB.get(`3/${type}/${id}/videos`, {
     params: { language: null },
   });
   setVideos({results: [...response.data.results, ...response2.data.results]});
@@ -62,11 +75,10 @@ export const getPerson = async (id, setPerson) => {
   setPerson(response.data);
 };
 /**
- * 
- * @param {int} id 
- * @param {function} setMovies
+ * type = "movie_credits" || type = "tv_credits"
  */
-export const getMovieCredits = async (id, setMovies) => {
-  const response = await apiTMDB.get(`3/person/${id}/movie_credits`);
+export const getPersonCredits = async (id, setMovies, type = "movie_credits") => {
+  const response = await apiTMDB.get(`3/person/${id}/${type}`);
   setMovies(response.data);
 };
+

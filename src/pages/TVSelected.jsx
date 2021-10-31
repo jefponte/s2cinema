@@ -12,8 +12,8 @@ import {
 import { FormattedDate } from "react-intl";
 import { useParams } from "react-router";
 import {
-  getMovieTMDB,
-  getWatchProviders,
+  getTvTMDB,
+  getWatchProvidersTv,
   getCredits,
   getImages,
   getVideos,
@@ -84,11 +84,11 @@ function CardProviders({ watchProviders }) {
   );
 }
 
-export default function MovieSelected(props) {
+export default function TVSelected(props) {
   const [search, setSearch] = useState(false);
   const location = useLocation();
   const { id } = useParams();
-  const [movie, setMovie] = useState({});
+  const [movie, setTv] = useState({});
   const [watchProviders, setWatchProviders] = useState(null);
   const [credits, setCredits] = useState({});
   const [images, setImages] = useState({});
@@ -99,12 +99,12 @@ export default function MovieSelected(props) {
   }, [location]);
 
   useEffect(() => {
-    setMovie({});
-    getMovieTMDB(id, setMovie);
-    getWatchProviders(id, setWatchProviders);
-    getCredits(id, setCredits);
-    getImages(id, setImages);
-    getVideos(id, setVideos);
+    setTv({});
+    getTvTMDB(id, setTv);
+    getWatchProvidersTv(id, setWatchProviders);
+    getCredits(id, setCredits, "tv");
+    getImages(id, setImages, "tv");
+    getVideos(id, setVideos, "tv");
   }, [id, search]);
 
   let styles = {
@@ -142,7 +142,6 @@ export default function MovieSelected(props) {
         backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}") `,
         backgroundAttachment: "fixed",
         backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
       },
     };
   }
@@ -190,17 +189,27 @@ export default function MovieSelected(props) {
                 <Card>
                   <CardContent>
                     <Typography variant="h5" component="div">
-                      {movie.title} ({movie.original_title})
+                      {movie.name} ({movie.original_name})
                     </Typography>
+
                     <Typography sx={{ mb: 1.5 }}>
-                      {movie.release_date === "" ? (
+                      {movie.first_air_date === "" ? (
                         "???"
                       ) : (
                         <FormattedDate
                           value={
-                            new Date(`${movie.release_date}T03:00:00.000Z`)
+                            new Date(`${movie.first_air_date}T03:00:00.000Z`)
                           }
                         />
+                      )}
+                      {movie.last_air_date === "" ? (
+                        "-"
+                      ) : (
+                        <>,<FormattedDate
+                          value={
+                            new Date(`${movie.last_air_date}T03:00:00.000Z`)
+                          }
+                        /></>
                       )}
 
                       <br />
@@ -227,7 +236,7 @@ export default function MovieSelected(props) {
                   </Grid>
 
                   {Object.keys(credits).length === 0 ? (
-                    <>Loading credits</>
+                    ""
                   ) : (
                     <ContainerCredits credits={credits} />
                   )}

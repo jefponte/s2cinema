@@ -4,7 +4,7 @@ import ImageNoPoster from "../assets/images/noImage.png";
 import styled from "styled-components";
 import { FormattedMessage } from "react-intl";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {Accordion, Typography, AccordionDetails, AccordionSummary,  Link, ImageList, ImageListItem } from "@material-ui/core";
+import {Accordion, Typography, AccordionDetails, AccordionSummary,  Link } from "@material-ui/core";
 
 const NamePerson = styled(({ color, ...otherProps }) => (
   <Typography {...otherProps} />
@@ -24,7 +24,7 @@ function Description({ type, movie }) {
 }
 
 function ItemCredits(props) {
-  const { movie, type } = props;
+  const { movie, type, typeElement } = props;
   return (
     <Grid item xl={1} lg={2} md={2} sm={6} xs={6}>
       <Card
@@ -34,7 +34,7 @@ function ItemCredits(props) {
           flexDirection: "column",
         }}
       >
-        <Link href={`/movie/${movie.id}`}>
+        <Link href={`/${typeElement}/${movie.id}`}>
           <CardMedia
             component="img"
             sx={{
@@ -105,10 +105,15 @@ function ShowAcordionCrew(props){
 }
 
 export default function ContainerMovieCredits(props) {
-  const { credits } = props;
+  const { credits, type } = props;
+  let typeElement = "movie";
+  if(type !== null && type !== undefined){
+    typeElement = "tv";
+  }
+  console.log(typeElement);
   return (
     <React.Fragment>
-      <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -126,15 +131,14 @@ export default function ContainerMovieCredits(props) {
           <AccordionDetails>
             <Grid container spacing={4}>
               {credits.cast.map((movie, index) => {
-                return <ItemCredits type={"cast"} movie={movie} key={index} />;
+                return <ItemCredits typeElement={typeElement} type={"cast"} movie={movie} key={index} />;
               })}
             </Grid>
           </AccordionDetails>
         </Accordion>
 
         <ShowAcordionCrew credits={credits}/>
-        
-      </Grid>
+
     </React.Fragment>
   );
 }
