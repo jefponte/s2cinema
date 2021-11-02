@@ -6,6 +6,9 @@ import MovieItem from "../components/MovieItem";
 import { BackToTop } from "material-ui-back-to-top";
 
 export default function MovieSearch(props) {
+  const type = (props.type === "movie" || props.type === "tv") ? props.type : "movie";
+  
+
   const noSearchJustHeader =
     props.noSearchJustHeader === false || props.noSearchJustHeader === undefined
       ? false
@@ -16,7 +19,7 @@ export default function MovieSearch(props) {
   const [pageNumber, setPageNumber] = useState(1);
   const { pageMovies, hasMore, loading, error } = useMovieSearch(
     query,
-    pageNumber
+    pageNumber, type
   );
 
   const observer = useRef();
@@ -66,7 +69,7 @@ export default function MovieSearch(props) {
                   return (
                     <React.Fragment key={page.page}>
                       {page.results.map((movie, index) => {
-                        return <MovieItem key={movie.id} movie={movie} />;
+                        return <MovieItem type={type} key={movie.id} movie={movie} />;
                       })}
                     </React.Fragment>
                   );
@@ -74,7 +77,7 @@ export default function MovieSearch(props) {
                   return (
                     <React.Fragment key={page.page}>
                       {page.results.map((movie, index) => {
-                        return <MovieItem key={movie.id} movie={movie} />;
+                        return <MovieItem type={type} key={movie.id} movie={movie} />;
                       })}
                     </React.Fragment>
                   );

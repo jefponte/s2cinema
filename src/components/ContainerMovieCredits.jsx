@@ -108,9 +108,13 @@ export default function ContainerMovieCredits(props) {
   const { credits, type } = props;
   let typeElement = "movie";
   if(type !== null && type !== undefined){
-    typeElement = "tv";
+    if(type=== "tv"){
+      typeElement = "tv";
+    }else if(type=== "movie"){
+      typeElement = "movie";
+    }
   }
-  console.log(typeElement);
+
   return (
     <React.Fragment>
 

@@ -17,6 +17,7 @@ import {
   getCredits,
   getImages,
   getVideos,
+  getEpisodes,
 } from "../services/api";
 import WatchProviders from "../components/WatchProviders";
 import ContainerCredits from "../components/ContainerCredits";
@@ -26,61 +27,54 @@ import ContainerImages from "../components/ContainerImages";
 
 import { useLocation } from "react-router-dom";
 import ContainerVideos from "../components/ContainerVideos";
+import ContainerEpisodes from "../components/ContainerEpisodes";
 
 function CardProviders({ watchProviders }) {
   if (watchProviders === null) {
     return (
-      <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-        <Card>
-          <CardContent>
-            <Typography variant="h5" component="div">
-              Watch Providers
-            </Typography>
-            NULL
-          </CardContent>
-        </Card>
-      </Grid>
-    );
-  }
-  if (watchProviders === undefined) {
-    return (
-      <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-        <Card>
-          <CardContent>
-            <Typography variant="h5" component="div">
-              Watch Providers
-            </Typography>
-            Undefined
-          </CardContent>
-        </Card>
-      </Grid>
-    );
-  }
-  if (Object.keys(watchProviders.results).length === 0) {
-    return (
-      <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-        <Card>
-          <CardContent>
-            <Typography variant="h5" component="div">
-              Watch Providers
-            </Typography>
-            Empty
-          </CardContent>
-        </Card>
-      </Grid>
-    );
-  }
-  return (
-    <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
       <Card>
         <CardContent>
           <Typography variant="h5" component="div">
             Watch Providers
           </Typography>
-          <WatchProviders providers={watchProviders} />
+          NULL
         </CardContent>
       </Card>
-    </Grid>
+    );
+  }
+  if (watchProviders === undefined) {
+    return (
+      <Card>
+        <CardContent>
+          <Typography variant="h5" component="div">
+            Watch Providers
+          </Typography>
+          Undefined
+        </CardContent>
+      </Card>
+    );
+  }
+  if (Object.keys(watchProviders.results).length === 0) {
+    return (
+      <Card>
+        <CardContent>
+          <Typography variant="h5" component="div">
+            Watch Providers
+          </Typography>
+          Empty
+        </CardContent>
+      </Card>
+    );
+  }
+  return (
+    <Card>
+      <CardContent>
+        <Typography variant="h5" component="div">
+          Watch Providers
+        </Typography>
+        <WatchProviders providers={watchProviders} />
+      </CardContent>
+    </Card>
   );
 }
 
@@ -93,6 +87,7 @@ export default function TVSelected(props) {
   const [credits, setCredits] = useState({});
   const [images, setImages] = useState({});
   const [videos, setVideos] = useState({});
+  const [episodes, setEpisodes] = useState([]);
 
   useEffect(() => {
     setSearch(false);
@@ -116,6 +111,7 @@ export default function TVSelected(props) {
     return (
       <>
         <MovieSearch
+          type="tv"
           noSearchJustHeader={true}
           setSearch={setSearch}
           searching={search}
@@ -128,6 +124,7 @@ export default function TVSelected(props) {
     return (
       <>
         <MovieSearch
+          type="tv"
           noSearchJustHeader={true}
           setSearch={setSearch}
           searching={search}
@@ -136,6 +133,7 @@ export default function TVSelected(props) {
       </>
     );
   }
+
   if (movie.backdrop_path !== null && movie.backdrop_path !== undefined) {
     styles = {
       paperContainer: {
@@ -144,6 +142,9 @@ export default function TVSelected(props) {
         backgroundSize: "cover",
       },
     };
+  }
+  for (var i = 0; i < movie.seasons.length; i++) {
+    getEpisodes(id, episodes, setEpisodes, i);
   }
 
   if (search) {
@@ -205,11 +206,14 @@ export default function TVSelected(props) {
                       {movie.last_air_date === "" ? (
                         "-"
                       ) : (
-                        <>,<FormattedDate
-                          value={
-                            new Date(`${movie.last_air_date}T03:00:00.000Z`)
-                          }
-                        /></>
+                        <>
+                          ,
+                          <FormattedDate
+                            value={
+                              new Date(`${movie.last_air_date}T03:00:00.000Z`)
+                            }
+                          />
+                        </>
                       )}
 
                       <br />
@@ -228,10 +232,38 @@ export default function TVSelected(props) {
               </Grid>
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                 <Grid container spacing={4}>
-                  <CardProviders watchProviders={watchProviders} />
-
+                  <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+                    <CardProviders watchProviders={watchProviders} />
+                    {/* <Card>
+                      <CardContent>
+                        {movie.seasons.map((season, index2) => {
+                          return (
+                            <React.Fragment key={index2}>
+                              {index2 + 1} - {season.name}
+                              {episodes[index2] !== undefined
+                                ? episodes[index2].episodes.map(
+                                    (episode, index3) => {
+                                      return (
+                                        
+                                        <React.Fragment key={index3}>
+                                          <br/>
+                                          <img src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${episode.still_path}`} alt="teste" width="80"/>
+                                          {episode.name}<br/>
+                                          
+                                        </React.Fragment>
+                                      );
+                                    }
+                                  )
+                                : ""}
+                            </React.Fragment>
+                          );
+                        })}
+                      </CardContent>
+                    </Card> */}
+                  </Grid>
                   <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
                     <ContainerImages images={images} />
+                    <ContainerEpisodes episodes={episodes} />
                     <ContainerVideos videos={videos} />
                   </Grid>
 

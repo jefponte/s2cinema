@@ -126,20 +126,7 @@ function Header(props) {
           />
           </Link>
           <div className={classes.grow} />
-          {/* <Switch
-            value={darkMode}
-            onChange={() => setDarkMode(!darkMode)}
-            className={classes.icons}
-          />
-          <IconButton className={classes.icons}>
-            <VideoCall />
-          </IconButton>
-          <IconButton className={classes.icons}>
-            <Apps />
-          </IconButton>
-          <IconButton className={classes.icons}>
-            <MoreVert />
-          </IconButton> */}
+          
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

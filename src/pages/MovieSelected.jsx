@@ -116,6 +116,7 @@ export default function MovieSelected(props) {
     return (
       <>
         <MovieSearch
+          type="movie"
           noSearchJustHeader={true}
           setSearch={setSearch}
           searching={search}
@@ -128,6 +129,7 @@ export default function MovieSelected(props) {
     return (
       <>
         <MovieSearch
+          type="movie"
           noSearchJustHeader={true}
           setSearch={setSearch}
           searching={search}

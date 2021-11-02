@@ -56,12 +56,19 @@ const TitleMovie = styled(({ color, ...otherProps }) => (
 // export default ListMovies;
 
 export default function MovieItem(props) {
-  const data =
-    props.movie.release_date === null ||
-    props.movie.release_date === "" ||
-    props.movie.release_date === undefined
-      ? ""
-      : new Date(props.movie.release_date);
+  const {type} = props;
+  var typeElement = "movie";
+  if(type=== "tv"){
+    typeElement = "tv";
+  }
+  var data = null;
+  if(type=== "tv"){
+    data = new Date(props.movie.first_air_date);
+  }else{
+    data = new Date(props.movie.release_date);
+  }
+  
+  
   let imagePath = ImageNoPoster;
 
   if (props.movie.poster_path !== null) {
@@ -76,7 +83,8 @@ export default function MovieItem(props) {
           flexDirection: "column",
         }}
       >
-        <Link to={`/movie/${props.movie.id}`}>
+        
+        <Link to={`/${typeElement}/${props.movie.id}`}>
           <CardMedia
             component="img"
             image={imagePath}
@@ -85,8 +93,7 @@ export default function MovieItem(props) {
         </Link>
         <CardContent>
           <TitleMovie sx={{ fontSize: 14 }} gutterBottom>
-            {props.movie.title}
-            
+            {type === "tv" ? props.movie.name : props.movie.title }
           </TitleMovie>
           <Typography>{data === "" ? "????" : data.getFullYear()}</Typography>
         </CardContent>

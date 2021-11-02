@@ -82,3 +82,12 @@ export const getPersonCredits = async (id, setMovies, type = "movie_credits") =>
   setMovies(response.data);
 };
 
+
+export const getEpisodes = async (id, episodes, setEpisodes, seasonNumber) => {
+
+  const response = await apiTMDB.get(`3/tv/${id}/season/${seasonNumber}`);
+  var lista = episodes;
+  lista[seasonNumber] = response.data;
+  setEpisodes(lista);
+
+};

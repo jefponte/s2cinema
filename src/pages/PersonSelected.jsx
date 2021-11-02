@@ -66,6 +66,7 @@ export default function PersonSelected(props) {
     return (
       <>
         <MovieSearch
+        type="movie"
           noSearchJustHeader={true}
           setSearch={setSearch}
           searching={search}
@@ -78,6 +79,8 @@ export default function PersonSelected(props) {
   if (search) {
     return (
       <MovieSearch
+      
+        type="movie"
         noSearchJustHeader={true}
         setSearch={setSearch}
         searching={search}
@@ -144,7 +147,6 @@ export default function PersonSelected(props) {
                 <br />
               </Grid>
 
-              {/* <CardProviders watchProviders={watchProviders} /> */}
               {Object.keys(images).length === 0 ? (
                 <></>
               ) : (
@@ -159,8 +161,8 @@ export default function PersonSelected(props) {
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                   <Card>
                     <CardContent>
-                      Filmes
-                      <ContainerMovieCredits credits={credits} />
+                      Movies
+                      <ContainerMovieCredits type="movie" credits={credits} />
                     </CardContent>
                   </Card>
                 </Grid>
@@ -171,7 +173,7 @@ export default function PersonSelected(props) {
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                   <Card>
                     <CardContent>
-                      Séries
+                      Tv Shows
                       <ContainerMovieCredits type="tv" credits={tvCredits} />
                     </CardContent>
                   </Card>

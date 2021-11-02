@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { apiTMDB } from "./api";
 
-export default function useMovieSearch(query, pageNumber) {
+export default function useMovieSearch(query, pageNumber, type) {
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [pageMovies, setPageMovies] = useState([]);
@@ -17,10 +18,10 @@ export default function useMovieSearch(query, pageNumber) {
     setError(false);
     let cancel;
     let params = { query, page: pageNumber };
-    let url = `/3/search/movie`;
+    let url = `/3/search/${type}`;
     if (query === "") {
       params = { page: pageNumber };
-      url = `/3/movie/popular`;
+      url = `/3/${type}/top_rated`;
     }
     apiTMDB
       .get(url, {
@@ -39,7 +40,7 @@ export default function useMovieSearch(query, pageNumber) {
         setError(true);
       });
     return () => cancel();
-  }, [query, pageNumber]);
+  }, [query, pageNumber, type]);
 
-  return { loading, error, pageMovies, hasMore };
+  return { loading, error, pageMovies, hasMore, type };
 }

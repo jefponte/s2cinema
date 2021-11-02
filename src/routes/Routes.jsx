@@ -15,10 +15,12 @@ function Routes() {
         <Route path="/movie/:id">
           <MovieSelected />
         </Route>
+        <Route exact path="/tv">
+          <Home type="tv"/>
+        </Route>
         <Route path="/tv/:id">
           <TVSelected/>
         </Route>
-
         <Route path="/person/:id">
           <PersonSelected />
         </Route>
