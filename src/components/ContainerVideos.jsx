@@ -12,11 +12,11 @@ import {
 export default function ContainerVideos(props) {
   const { videos } = props;
   if (Object.keys(videos).length === 0) {
-    return <>Loading</>;
+    return <></>;
   }
 
   if (videos.results.length === 0) {
-    return <>Nenhum Vídeo</>;
+    return <></>;
   }
 
   return (

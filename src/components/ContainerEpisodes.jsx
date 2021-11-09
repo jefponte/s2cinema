@@ -9,9 +9,9 @@ import {
 
 export default function ContainerEpisodes(props) {
   const { episodes } = props;
-  console.log(episodes);
+  
   if (Object.keys(episodes).length === 0) {
-    return <>Loading</>;
+    return <></>;
   }
 
   return (

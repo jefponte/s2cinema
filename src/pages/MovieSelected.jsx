@@ -22,7 +22,7 @@ import WatchProviders from "../components/WatchProviders";
 import ContainerCredits from "../components/ContainerCredits";
 import { BackToTop } from "material-ui-back-to-top";
 import MovieSearch from "./MovieSearch";
-import ContainerImages from "../components/ContainerImages";
+import ContainerImages from "../components/ContainerImages2";
 
 import { useLocation } from "react-router-dom";
 import ContainerVideos from "../components/ContainerVideos";

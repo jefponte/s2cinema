@@ -8,7 +8,7 @@ import {
   Box,
   Container,
 } from "@material-ui/core";
-
+import ImageNoPoster from "../assets/images/noImage.png";
 import { FormattedDate } from "react-intl";
 import { useParams } from "react-router";
 import {
@@ -110,7 +110,11 @@ export default function PersonSelected(props) {
                 <Card>
                   <CardMedia
                     component="img"
-                    image={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${person.profile_path}`}
+                    image={
+                     person.profile_path === null || person.profile_path === undefined
+                ? ImageNoPoster
+                : `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${person.profile_path}`
+              }
                     alt="green iguana"
                   />
                 </Card>
@@ -156,7 +160,7 @@ export default function PersonSelected(props) {
               )}
 
               {Object.keys(credits).length === 0 ? (
-                <>Loading credits</>
+                <></>
               ) : (
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                   <Card>
