@@ -17,15 +17,17 @@ import {
   getCredits,
   getImages,
   getVideos,
+  getCollection,
 } from "../services/api";
 import WatchProviders from "../components/WatchProviders";
 import ContainerCredits from "../components/ContainerCredits";
 import { BackToTop } from "material-ui-back-to-top";
 import MovieSearch from "./MovieSearch";
-import ContainerImages from "../components/ContainerImages2";
+import ContainerImages from "../components/ContainerImages";
 
 import { useLocation } from "react-router-dom";
 import ContainerVideos from "../components/ContainerVideos";
+import ContainerCollection from "../components/ContainerCollection";
 
 function CardProviders({ watchProviders }) {
   if (watchProviders === null) {
@@ -93,10 +95,22 @@ export default function MovieSelected(props) {
   const [credits, setCredits] = useState({});
   const [images, setImages] = useState({});
   const [videos, setVideos] = useState({});
+  const [collection, setCollection] = useState(null);
 
   useEffect(() => {
     setSearch(false);
   }, [location]);
+
+  useEffect(() => {
+    if (
+      movie.belongs_to_collection !== null &&
+      movie.belongs_to_collection !== undefined
+    ) {
+      if (movie.belongs_to_collection.id !== undefined) {
+        getCollection(movie.belongs_to_collection.id, setCollection);
+      }
+    }
+  }, [movie]);
 
   useEffect(() => {
     setMovie({});
@@ -138,6 +152,7 @@ export default function MovieSelected(props) {
       </>
     );
   }
+
   if (movie.backdrop_path !== null && movie.backdrop_path !== undefined) {
     styles = {
       paperContainer: {
@@ -232,6 +247,12 @@ export default function MovieSelected(props) {
                     <>Loading credits</>
                   ) : (
                     <ContainerCredits credits={credits} />
+                  )}
+
+                  {collection === null ? (
+                    <></>
+                  ) : (
+                    <ContainerCollection collection={collection} credits={credits} />
                   )}
                 </Grid>
               </Grid>
