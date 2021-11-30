@@ -21,7 +21,8 @@ export default function useMovieSearch(query, pageNumber, type) {
     let url = `/3/search/${type}`;
     if (query === "") {
       params = { page: pageNumber };
-      url = `/3/${type}/now_playing`;
+      url = `/3/${type}/popular`;
+
     }
     apiTMDB
       .get(url, {

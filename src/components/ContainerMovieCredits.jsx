@@ -25,6 +25,14 @@ function Description({ type, movie }) {
 
 function ItemCredits(props) {
   const { movie, type, typeElement } = props;
+
+  var data = null;
+  if(typeElement === "tv"){
+    data = new Date(movie.first_air_date);
+  }else{
+    data = new Date(movie.release_date);
+  }
+  
   return (
     <Grid item xl={1} lg={2} md={2} sm={6} xs={6}>
       <Card
@@ -51,8 +59,10 @@ function ItemCredits(props) {
         </Link>
         <CardContent>
           <NamePerson sx={{ fontSize: 14 }} gutterBottom>
-            {movie.title}
+            {typeElement === "tv" ? movie.name : movie.title}
           </NamePerson>
+          
+          {data === "" ? "????" : data.getFullYear()}
           <Description type={type} movie={movie} />
         </CardContent>
       </Card>
@@ -61,7 +71,7 @@ function ItemCredits(props) {
 }
 
 function ShowAcordionCrew(props){
-  const {credits} = props;
+  const {credits, typeElement} = props;
   if(credits.crew === null || credits.crew === undefined){
     return (<></>);
   }
@@ -93,7 +103,7 @@ function ShowAcordionCrew(props){
           <AccordionDetails>
             <Grid container spacing={4}>
               {jobs[element].map((movie, index2) => {
-                return <ItemCredits type={"crew"} movie={movie} key={index2} />;
+                return <ItemCredits type={"crew"} typeElement={typeElement} movie={movie} key={index2} />;
               })}
             </Grid>
           </AccordionDetails>
@@ -141,7 +151,7 @@ export default function ContainerMovieCredits(props) {
           </AccordionDetails>
         </Accordion>
 
-        <ShowAcordionCrew credits={credits}/>
+        <ShowAcordionCrew typeElement={typeElement} credits={credits}/>
 
     </React.Fragment>
   );
