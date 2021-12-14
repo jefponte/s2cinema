@@ -8,16 +8,18 @@ export const apiTMDB = axios.create({
   },
 });
 
-
-
-export const apiPopCorn = axios.create({
-  baseURL: "https://popcorn-ru.tk/"
+export const apiGetMovieList = axios.create({
+  baseURL: "https://api.getmovielist.com/"
 });
 
 
 export const getMoviePopCorn = async (idIMDB, setMovie) => {
-  const response = await apiTMDB.get(`/movie/${idIMDB}`);
-  setMovie(response.data);
+  const token = localStorage.getItem("token");
+  if(token){
+    apiGetMovieList.defaults.headers.Authorization = `Bearer ${token}`;
+    const response = await apiGetMovieList.get(`/api/moviepop/${idIMDB}`);
+    setMovie(response.data);  
+  }
 };
 
 export const getMovieTMDB = async (id, setMovie) => {

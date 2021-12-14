@@ -67,7 +67,6 @@ function ItemCredits(props) {
 
 export default function ContainerCollection(props) {
   const { credits, collection } = props;
-  console.log(collection);
   return (
     <React.Fragment>
       <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>

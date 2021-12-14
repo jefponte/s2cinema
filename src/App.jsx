@@ -18,9 +18,9 @@ function App() {
       type: darkMode ? 'dark' : 'light',
 
       background: {
-        default: darkMode ? '#2b2b2b' : '#FFF',
-        dark: darkMode ? '#181818' : '#f4f6f8',
-        paper: darkMode ? '#2b2b2b' : '#FFF',
+        default: '#2b2b2b',
+        dark: '#181818',
+        paper: '#2b2b2b',
       },
       
       primary: {
@@ -36,25 +36,6 @@ function App() {
         contrastText: "#fff",
       }
     },
-
-    // status: {
-    //   danger: "#e53e3e",
-    // },
-    // palette: {
-    //   primary: {
-    //     main: "#",
-    //     darker: "#050505",
-    //   },
-
-    //   neutral: {
-    //     main: "#",
-    //     contrastText: "#fff",
-    //   },
-    //   secondary: {
-    //     main: "#ffc107",
-    //     contrastText: "#fff",
-    //   }
-    // },
   });
 
   return (

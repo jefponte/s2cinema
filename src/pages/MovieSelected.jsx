@@ -18,6 +18,7 @@ import {
   getImages,
   getVideos,
   getCollection,
+  getMoviePopCorn,
 } from "../services/api";
 import WatchProviders from "../components/WatchProviders";
 import ContainerCredits from "../components/ContainerCredits";
@@ -28,6 +29,7 @@ import ContainerImages from "../components/ContainerImages";
 import { useLocation } from "react-router-dom";
 import ContainerVideos from "../components/ContainerVideos";
 import ContainerCollection from "../components/ContainerCollection";
+import ContainerTorrents from "../components/ContainerTorrents";
 
 function CardProviders({ watchProviders }) {
   if (watchProviders === null) {
@@ -95,6 +97,7 @@ export default function MovieSelected(props) {
   const [credits, setCredits] = useState({});
   const [images, setImages] = useState({});
   const [videos, setVideos] = useState({});
+  const [moviePopcorn, setMoviePopcorn] = useState(null);
   const [collection, setCollection] = useState(null);
 
   useEffect(() => {
@@ -109,6 +112,9 @@ export default function MovieSelected(props) {
       if (movie.belongs_to_collection.id !== undefined) {
         getCollection(movie.belongs_to_collection.id, setCollection);
       }
+    }
+    if (movie.imdb_id !== null && movie.imdb_id !== undefined) {
+      getMoviePopCorn(movie.imdb_id, setMoviePopcorn);
     }
   }, [movie]);
 
@@ -175,6 +181,7 @@ export default function MovieSelected(props) {
   }
   return (
     <>
+    {console.log(moviePopcorn)}
       <MovieSearch
         noSearchJustHeader={true}
         setSearch={setSearch}
@@ -230,6 +237,7 @@ export default function MovieSelected(props) {
                       })}
                     </Typography>
                     <Typography variant="body2">{movie.overview}</Typography>
+                    <ContainerTorrents movie={moviePopcorn}/>
                   </CardContent>
                 </Card>
                 <br />
@@ -252,7 +260,10 @@ export default function MovieSelected(props) {
                   {collection === null ? (
                     <></>
                   ) : (
-                    <ContainerCollection collection={collection} credits={credits} />
+                    <ContainerCollection
+                      collection={collection}
+                      credits={credits}
+                    />
                   )}
                 </Grid>
               </Grid>
