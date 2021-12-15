@@ -1,51 +1,63 @@
 import * as React from "react";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
-  Accordion,
   Typography,
-  AccordionDetails,
-  AccordionSummary,
   Link,
   Card,
-  CardMedia,
-  Grid,
 } from "@material-ui/core";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import IconButton from "@mui/material/IconButton";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+
+
+
 
 export default function ContainerTorrents(props) {
   const { movie } = props;
   if (movie === null) {
-    return <>Loading..</>;
+    return <></>;
   }
   if (Object.keys(movie).length === 0) {
-    return <>Loading</>;
+    return <></>;
   }
   if (movie.torrents === undefined) {
-    return <>Loading</>;
+    return <></>;
   }
 
   return (
     <>
       {Object.keys(movie.torrents).map((element, index) => {
         return (
-          <Accordion key={index}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography>{element}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Grid container spacing={4}>
+          <Card key={index}>
+            <CardHeader title={`Watch Torrent [${element}]`} />
 
-                {Object.keys(movie.torrents[element]).map((element2, index) => {
-                  return (
-                    <><a href={`https://webtor.io/#/show?magnet=${movie.torrents[element][element2].url}`}>{element2}</a> - <br/><br/><br/></>
-                  );
-                })}
-              </Grid>
-            </AccordionDetails>
-          </Accordion>
+            <CardContent>
+              {Object.keys(movie.torrents[element]).map((element2, index) => {
+                return (
+                  <>
+                    <Typography variant="body2" color="text.secondary">
+                      {element2}
+                    </Typography>
+
+                    <IconButton aria-label="Play Movie Now">
+                      <Link
+                        href={`https://webtor.io/#/show?magnet=${movie.torrents[element][element2].url}`}
+                      >
+                        <PlayCircleIcon />
+                      </Link>
+                    </IconButton>
+
+                    <IconButton aria-label="share">
+                      <Link href={`${movie.torrents[element][element2].url}`}>
+                        <FileDownloadIcon />
+                      </Link>
+                    </IconButton>
+                  </>
+                );
+              })}
+            </CardContent>
+          </Card>
         );
       })}
     </>

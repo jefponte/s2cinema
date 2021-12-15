@@ -25,11 +25,14 @@ import ContainerCredits from "../components/ContainerCredits";
 import { BackToTop } from "material-ui-back-to-top";
 import MovieSearch from "./MovieSearch";
 import ContainerImages from "../components/ContainerImages";
-
 import { useLocation } from "react-router-dom";
 import ContainerVideos from "../components/ContainerVideos";
 import ContainerCollection from "../components/ContainerCollection";
 import ContainerTorrents from "../components/ContainerTorrents";
+import CardActions from "@mui/material/CardActions";
+import IconButton from "@mui/material/IconButton";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
 
 function CardProviders({ watchProviders }) {
   if (watchProviders === null) {
@@ -129,7 +132,7 @@ export default function MovieSelected(props) {
 
   let styles = {
     paperContainer: {
-      backgroundColor: "#2b2b2b",
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
     },
   };
   if (movie === null || movie === undefined) {
@@ -181,7 +184,7 @@ export default function MovieSelected(props) {
   }
   return (
     <>
-    {console.log(moviePopcorn)}
+      {console.log(moviePopcorn)}
       <MovieSearch
         noSearchJustHeader={true}
         setSearch={setSearch}
@@ -237,8 +240,15 @@ export default function MovieSelected(props) {
                       })}
                     </Typography>
                     <Typography variant="body2">{movie.overview}</Typography>
-                    <ContainerTorrents movie={moviePopcorn}/>
                   </CardContent>
+                  <CardActions disableSpacing>
+                    <IconButton aria-label="add to favorites">
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                      <ShareIcon />
+                    </IconButton>
+                  </CardActions>
                 </Card>
                 <br />
               </Grid>
@@ -247,6 +257,7 @@ export default function MovieSelected(props) {
                   <CardProviders watchProviders={watchProviders} />
 
                   <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
+                    <ContainerTorrents movie={moviePopcorn} />
                     <ContainerImages images={images} />
                     <ContainerVideos videos={videos} />
                   </Grid>

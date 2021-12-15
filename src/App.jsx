@@ -20,7 +20,7 @@ function App() {
       background: {
         default: '#2b2b2b',
         dark: '#181818',
-        paper: '#2b2b2b',
+        paper: 'rgba(0, 0, 0, 0.5)',
       },
       
       primary: {

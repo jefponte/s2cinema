@@ -27,11 +27,7 @@ const TitleMovie = styled(({ color, ...otherProps }) => (
 // // ))`
 // //   color: red;
 // // `;
-// // const ButtonUnlike = styled(({ color, ...otherProps }) => (
-// //   <FavoriteIcon {...otherProps} />
-// // ))`
-// //   color: black;
-// // `;
+
 // // const ButtonView = styled(({ color, ...otherProps }) => (
 // //   <VisibilityIcon {...otherProps} />
 // // ))`

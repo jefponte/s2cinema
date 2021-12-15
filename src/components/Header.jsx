@@ -116,11 +116,7 @@ function Header(props) {
         <Link color="inherit" href="/">
 
           <img
-            src={
-              theme.palette.type === 'dark'
-                ? ImageLogo
-                : ImageLogo
-            }
+            src={ImageLogo}
             alt='logo'
             className={classes.logo}
           />
