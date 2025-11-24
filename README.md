@@ -1,70 +1,164 @@
-# Getting Started with Create React App
+```mermaid
+erDiagram
+    ADMINS {
+        UUID id PK
+        string name
+        string email
+        string password
+        enum role
+        string invoice_express_account_name
+        string invoice_express_api_key
+        timestamp created_at
+        timestamp updated_at
+        timestamp deleted_at
+    }
+    PROVIDERS {
+        UUID id PK
+        string name
+        string email
+        timestamp email_verified_at
+        string password
+        string company_name
+        string nif
+        string address
+        string phone
+        string invoice_express_account_name
+        string invoice_express_api_key
+        UUID tax_id FK
+        timestamp created_at
+        timestamp updated_at
+        timestamp deleted_at
+    }
+    CUSTOMERS {
+        UUID id PK
+        string name
+        string email
+        timestamp email_verified_at
+        string password
+        string phone
+        string nif
+        string address
+        timestamp created_at
+        timestamp updated_at
+        timestamp deleted_at
+    }
+    TIERS {
+        UUID id PK
+        string description
+        string details
+        int max_payments_per_month
+        decimal max_total_amount_per_month
+        decimal monthly_price
+        decimal yearly_price
+        int order
+        enum type
+        enum status
+        timestamp created_at
+        timestamp updated_at
+    }
+    PROVIDER_TIERS {
+        UUID id PK
+        UUID provider_id FK
+        UUID tier_id FK
+        date start_date
+        date end_date
+        enum status
+        timestamp created_at
+        timestamp updated_at
+    }
+    ARTICLES {
+        UUID id PK
+        string name
+        text description
+        enum type
+        decimal price
+        UUID tax_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+    ORDERS {
+        UUID id PK
+        UUID provider_id FK
+        UUID customer_id FK
+        decimal subtotal_price
+        decimal total_price
+        enum status
+        timestamp created_at
+        timestamp updated_at
+    }
+    ORDER_ITEMS {
+        UUID id PK
+        UUID order_id FK
+        UUID article_id FK
+        int quantity
+        decimal unit_price
+        decimal discount
+        UUID tax_id FK
+        decimal total_price
+        timestamp created_at
+        timestamp updated_at
+    }
+    TAXES {
+        UUID id PK
+        string description
+        string invoice_express_code
+        decimal value
+        string exemption_reason
+        string label_text
+        timestamp created_at
+        timestamp updated_at
+    }
+    RECEIPTS {
+        UUID id PK
+        UUID order_id FK
+        bigint invoice_express_id
+        string permalink
+        date date
+        date due_date
+        decimal amount
+        text pdf_url
+        string file_name
+        json invoice_details
+        timestamp created_at
+        timestamp updated_at
+    }
+    PAYMENTS {
+        UUID id PK
+        UUID order_id FK
+        enum payment_method
+        decimal amount
+        enum status
+        string transaction_id
+        json response_data
+        timestamp created_at
+        timestamp updated_at
+    }
+    REFUNDS {
+        UUID id PK
+        UUID order_id FK
+        decimal amount
+        enum status
+        timestamp created_at
+        timestamp updated_at
+    }
+    REFUND_ORDER_ITEMS {
+        UUID id PK
+        UUID refund_id FK
+        UUID order_item_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    ADMINS ||--o{ PROVIDER_TIERS : manages
+    PROVIDERS ||--o{ PROVIDER_TIERS : subscribes
+    PROVIDERS ||--o{ ORDERS : places
+    CUSTOMERS ||--o{ ORDERS : places
+    TIERS ||--o{ PROVIDER_TIERS : includes
+    ORDERS ||--o{ ORDER_ITEMS : contains
+    ARTICLES ||--o{ ORDER_ITEMS : defines
+    TAXES ||--o{ ARTICLES : applies
+    TAXES ||--o{ ORDER_ITEMS : applies
+    ORDERS ||--o{ RECEIPTS : issues
+    ORDERS ||--o{ PAYMENTS : receives
+    ORDERS ||--o{ REFUNDS : processes
+    REFUNDS ||--o{ REFUND_ORDER_ITEMS : details
